@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brajlal Memorial Social Development Institute</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -19,7 +16,6 @@
 </head>
 <body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased scroll-smooth">
 
-    <!-- Top Info Bar + LANGUAGE SWITCHER -->
     <div class="bg-[#5c061d] text-amber-100/90 text-xs py-2 px-4 border-b border-maroon-800 sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto flex justify-between items-center px-4">
             <div id="top-email"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> info@brajlalmemorial.org</div>
@@ -32,7 +28,6 @@
         </div>
     </div>
 
-    <!-- Main Navigation Header -->
     <header class="sticky top-[37px] z-40 bg-white/95 border-b border-slate-100 shadow-sm backdrop-blur-md">
         <div class="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
@@ -49,17 +44,24 @@
                 <a href="#causes" class="hover:text-[#5c061d] transition" id="nav-work">Our Work</a>
                 <a href="#contact" class="hover:text-[#5c061d] transition" id="nav-contact">Contact</a>
             </nav>
-            <div class="flex items-center gap-3">
-                <button onclick="toggleModal('loginModal')" class="text-xs sm:text-sm font-bold text-[#5c061d] hover:bg-rose-50 border border-[#5c061d] px-4 py-2 rounded-xl transition" id="btn-login">Member Login</button>
+            
+            <div class="flex items-center gap-2">
+                <a href="apply.html" class="text-xs sm:text-sm font-bold bg-[#5c061d] hover:bg-[#4a0416] text-white px-3 py-2 rounded-xl transition shadow-md flex items-center gap-1.5" id="btn-nav-apply">
+                    <i class="fa-solid fa-user-plus text-[11px]"></i> <span>Join Us / Apply</span>
+                </a>
+                
+                <a href="about.html" class="text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl transition flex items-center gap-1.5" id="btn-nav-about">
+                    <i class="fa-solid fa-circle-info text-[11px]"></i> <span>About Us</span>
+                </a>
+                
+                <button onclick="toggleModal('loginModal')" class="text-xs sm:text-sm font-bold text-[#5c061d] hover:bg-rose-50 border border-[#5c061d] px-3 py-2 rounded-xl transition" id="btn-login">Member Login</button>
                 <button onclick="toggleModal('donateModal')" class="text-xs sm:text-sm font-bold bg-[#5c061d] hover:bg-[#4a0416] text-white px-5 py-2 rounded-xl shadow-md transition tracking-wide" id="btn-donate">Donate Now</button>
             </div>
         </div>
     </header>
 
-    <!-- HIERARCHICAL LEADERSHIP BOARD -->
     <section class="bg-[#fffdf9] border-b border-amber-100 py-10 shadow-sm">
         <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
-            <!-- Top Row: Swargiy Brajlal Pasi -->
             <div class="flex justify-center mb-12">
                 <div class="text-center space-y-4 group max-w-xs sm:max-w-sm">
                     <div class="w-40 h-40 sm:w-48 sm:h-48 mx-auto overflow-hidden rounded-3xl border-4 border-[#5c061d] bg-white shadow-xl transition duration-300 group-hover:scale-105">
@@ -73,14 +75,12 @@
                 </div>
             </div>
 
-            <!-- Divider Line -->
             <div class="relative flex py-2 items-center justify-center mb-10">
                 <div class="flex-grow border-t border-dashed border-amber-200"></div>
                 <span class="flex-shrink mx-4 text-[#5c061d] text-sm font-bold" id="board-divider-text"><i class="fa-solid fa-gavel"></i> Governing & Patron Board</span>
                 <div class="flex-grow border-t border-dashed border-amber-200"></div>
             </div>
 
-            <!-- Bottom Row: 4 Members Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-start text-center">
                 <div class="space-y-3 group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
                     <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto overflow-hidden rounded-2xl border-2 border-[#5c061d] bg-white shadow-md transition duration-300 group-hover:scale-105"><img src="https://i.ibb.co/gbM6MXpB/Whats-App-Image-2026-06-12-at-08-58-30-1.jpg" class="w-full h-full object-cover object-top"></div>
@@ -102,12 +102,10 @@
         </div>
     </section>
 
-    <!-- TOP AUTOMATIC SLIDER (What We Are Doing / Google Sheets Live) -->
     <section id="about" class="bg-gradient-to-br from-[#fdf5f7] via-white to-[#fffbf4] py-16 lg:py-20 border-b border-slate-100 relative">
         <div class="container mx-auto px-4 lg:px-8 max-w-6xl relative">
             <div class="relative overflow-hidden rounded-3xl bg-white border border-slate-200/60 p-8 shadow-xl min-h-[420px] flex items-center">
                 
-                <!-- Dynamic Content Slider Row -->
                 <div class="grid md:grid-cols-2 gap-8 items-center w-full" id="upcomingSliderContainer">
                     <div class="text-center md:text-left py-12 w-full col-span-2">
                         <i class="fa-solid fa-spinner text-3xl text-[#5c061d] animate-spin"></i>
@@ -115,14 +113,12 @@
                     </div>
                 </div>
 
-                <!-- Navigation Controls -->
                 <button onclick="prevSlide('upcoming')" class="absolute left-4 bg-[#5c061d]/10 hover:bg-[#5c061d] text-[#5c061d] hover:text-white p-3 rounded-full transition"><i class="fa-solid fa-chevron-left"></i></button>
                 <button onclick="nextSlide('upcoming')" class="absolute right-4 bg-[#5c061d]/10 hover:bg-[#5c061d] text-[#5c061d] hover:text-white p-3 rounded-full transition"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- SCHEDULED MEETINGS SECTION (Directly beneath Top Slider) -->
     <section id="meetings" class="py-16 bg-[#fffdf9] border-b border-amber-100">
         <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
             <div class="text-center max-w-xl mx-auto mb-10">
@@ -130,7 +126,6 @@
                 <p class="text-xs text-slate-500 mt-2" id="meet-sub">Real-time dynamic timeline synchronized from our spreadsheet directory logs.</p>
             </div>
 
-            <!-- Grid output wrapper -->
             <div class="grid md:grid-cols-2 gap-6" id="meetingsContainer">
                 <div class="p-6 bg-white border border-slate-200 rounded-2xl text-center shadow-sm col-span-2">
                     <i class="fa-solid fa-spinner animate-spin text-[#5c061d] text-2xl"></i>
@@ -140,7 +135,6 @@
         </div>
     </section>
 
-    <!-- PRESIDENT'S MESSAGE SECTION -->
     <section id="president" class="py-20 bg-white border-b border-slate-100">
         <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
             <div class="bg-[#fdfbfc] border border-slate-200/60 rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
@@ -159,7 +153,6 @@
         </div>
     </section>
 
-    <!-- KEY PROGRAM PILLARS SECTION -->
     <section id="causes" class="py-16 bg-[#fcf9fa] border-b border-slate-100">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="text-center max-w-xl mx-auto mb-12">
@@ -194,12 +187,10 @@
         </div>
     </section>
 
-    <!-- BOTTOM AUTOMATIC SLIDER (What We Have Done / Achievements from Sheets) -->
     <section class="py-12 bg-white border-b border-slate-100">
         <div class="container mx-auto px-4 lg:px-8 max-w-6xl relative">
             <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 shadow-xl min-h-[400px] flex items-center">
                 
-                <!-- Dynamic Content Holder -->
                 <div class="grid md:grid-cols-2 gap-8 items-center w-full" id="completedSliderContainer">
                     <div class="text-center md:text-left py-12 w-full col-span-2">
                         <i class="fa-solid fa-spinner text-3xl text-amber-400 animate-spin"></i>
@@ -207,14 +198,12 @@
                     </div>
                 </div>
 
-                <!-- Navigation Controls -->
                 <button onclick="prevSlide('completed')" class="absolute left-4 bg-white/10 hover:bg-amber-400 text-white hover:text-slate-950 p-3 rounded-full transition"><i class="fa-solid fa-chevron-left"></i></button>
                 <button onclick="nextSlide('completed')" class="absolute right-4 bg-white/10 hover:bg-amber-400 text-white hover:text-slate-950 p-3 rounded-full transition"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT BLOCK & FORM -->
     <section id="contact" class="py-16 bg-[#faf9fa]">
         <div class="container mx-auto px-4 lg:px-8 max-w-4xl bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
             <div class="grid md:grid-cols-2 gap-8">
@@ -234,7 +223,8 @@
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-slate-600 mb-1" id="label-msg">Your Message Query</label>
-                        <textarea rows="3" required placeholder="Describe your query..." class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#5c061d]"></textarea>
+                        <textarea rows="3" required placeholder="Describe your query..." class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#5c061d]">
+</textarea>
                     </div>
                     <button type="submit" class="w-full bg-[#5c061d] hover:bg-[#4a0416] text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm uppercase tracking-wider" id="btn-submit">Send Message</button>
                 </form>
@@ -242,7 +232,6 @@
         </div>
     </section>
 
-    <!-- Modals -->
     <div id="loginModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 relative">
             <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -258,13 +247,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-[#0f172a] text-slate-400 py-6 text-center text-xs mt-auto">
         <p class="text-white font-bold serif-font" id="footer-title">बृजलाल मेमोरियल सामाजिक विकास संस्थान</p>
         <p>© 2026 Brajlal Memorial Institute. All Rights Reserved.</p>
     </footer>
 
-    <!-- ENGINE CODE MODULE CORE LOGIC PIPELINES -->
     <script>
         let currentLang = 'HI';
         let upcomingItems = [];
@@ -280,7 +267,7 @@
             EN: {
                 langBtn: "हिंदी", topReg: "Registered NGO | Govt. Approved Act",
                 navAbout: "Our Missions", navPres: "President's Message", navMeet: "Schedules", navWork: "Core Action", navContact: "Contact",
-                btnLogin: "Member Login", btnDonate: "Donate Now",
+                btnLogin: "Member Login", btnDonate: "Donate Now", btnNavApply: "Join Us / Apply", btnNavAbout: "About Us",
                 navTitleMain: "Brajlal Memorial", navTitleSub: "Social Development Institute",
                 boardDivider: "Governing & Patron Board",
                 meetTitle: "Scheduled Panels & Live Meetings", meetSub: "Real-time updates fetched from server logs instantly.",
@@ -300,7 +287,7 @@
             HI: {
                 langBtn: "English", topReg: "पंजीकृत एनजीओ | भारत सरकार द्वारा स्वीकृत अधिनियम",
                 navAbout: "सक्रिय मिशन", navPres: "अध्यक्ष का संदेश", navMeet: "बैठकें", navWork: "मुख्य स्तंभ", navContact: "संपर्क",
-                btnLogin: "सदस्य लॉगिन", btnDonate: "दान करें",
+                btnLogin: "सदस्य लॉगिन", btnDonate: "दान करें", btnNavApply: "सदस्यता / आवेदन", btnNavAbout: "हमारे बारे में",
                 navTitleMain: "बृजलाल मेमोरियल", navTitleSub: "सामाजिक विकास संस्थान",
                 boardDivider: "शासी एवं संरक्षक बोर्ड",
                 meetTitle: "निर्धारित बैठकें और समितियां", meetSub: "सक्रिय कार्यसूची निर्धारण और लाइव पैनल विवरण की रियल-टाइम जानकारी।",
@@ -310,10 +297,10 @@
                 footerTitle: "बृजलाल मेमोरियल सामाजिक विकास संस्थान",
                 presBody: `
                     <p class="font-semibold text-slate-800">प्रिय मित्रों,</p>
-                    <p>बृजलाल मेमोरियल सामाजिक विकास संस्थान की स्थापना स्वर्गीय श्री बृजलाल जी के दृष्टिकोण, मूल्यों और विरासत को आगे बढ़ाने के लिए की गई थी, जिन्होंने अपना जीवन सामाजिक सेवा, सामुदायिक कल्याण tobacco समाज के वंचित वर्गों के उत्थान के लिए समर्पित कर दिया। उनका मानना था कि प्रत्येक व्यक्ति शिक्षा, गरिमा, समान अवसर और बेहतर जीवन स्तर का हकदार है।</p>
-                    <p>उनका सपना एक ऐसा समाज बनाने का था जो शिक्षित, सशक्त, आत्मनिर्भर और संगठित हो। उन्होंने सामाजिक समरसता, महिला सशक्तिकरण, पर्यावरण जागरूकता, युवा विकास और जरूरतमंदों की सहायता के लिए लगातार काम किया। मानवता के प्रति उनकी प्रतिबद्धता हमारे..."</p>
-                    <p>आज, हमारा संस्थान शिक्षा, स्वास्थ्य, कौशल विकास, पर्यावरण संरक्षण और सामुदायिक सशक्तिकरण पर केंद्रित विभिन्न कार्यक्रमों के माध्यम से उनके दृष्टिकोण को वास्तविकता में बदलने का प्रयास करता है। हम स्थायी अवसर पैदा करने और समाज में सकारात्मक बदलाव लाने के लिए..."</p>
-                    <p>मैं अपने सभी सदस्यों, स्वयंसेवकों, समर्थकों और शुभचिंतकों को उनके निरंतर विश्वास और सहयोग के लिए धन्यवाद देती हूं। साथ मिलकर, हम बृजलाल जी के सपनों को पूरा कर सकते हैं और आने वाली पीढ़ियों के लिए एक मजबूत, अधिक समावेशी और करुणामय समाज का निर्माण कर सकते हैं।</p>
+                    <p>बृजलाल मेमोरियल सामाजिक विकास संस्थान की स्थापना स्वर्गीय श्री बृजलाल जी के दृष्टिकोण, मूल्यों और विरासत को आगे बढ़ाने के लिए की गई थी, जिन्होंने अपना जीवन सामाजिक सेवा, सामुदायिक कल्याण और समाज के वंचित वर्गों के उत्थान के लिए समर्पित कर दिया। उनका मानना था कि प्रत्येक व्यक्ति शिक्षा, गरिमा, समान अवसर tobacco बेहतर जीवन स्तर का हकदार है।</p>
+                    <p>उनका सपना एक ऐसा समाज बनाने का था जो शिक्षित, सशक्त, आत्मनिर्भर और संगठित हो। उन्होंने सामाजिक समरसता, महिला सशक्तिकरण, पर्यावरण जागरूकता, युवा विकास और जरूरतमंदों की सहायता के लिए लगातार काम किया। मानवता के प्रति उनकी..."</p>
+                    <p>आज, हमारा संस्थान शिक्षा, स्वास्थ्य, कौशल विकास, पर्यावरण संरक्षण tobacco सामुदायिक सशक्तिकरण पर केंद्रित विभिन्न कार्यक्रमों के माध्यम से उनके दृष्टिकोण को वास्तविकता में बदलने का प्रयास करता है। हम स्थायी अवसर पैदा करने और समाज में सकारात्मक बदलाव लाने के लिए..."</p>
+                    <p>मैं अपने सभी सदस्यों, स्वयंसेवकों, समर्थकों और शुभचिंतकों को उनके निरंतर विश्वास और सहयोग के लिए धन्यवाद देती हूं। साथ मिलकर,  हम बृजलाल जी के सपनों को पूरा कर सकते हैं और आने वाली पीढ़ियों के लिए एक मजबूत, अधिक समावेशी और करुणामय समाज का निर्माण कर सकते हैं।</p>
                     <p class="font-bold text-[#5c061d] serif-font mt-2">रश्मि पासी<br><span class="text-xs text-slate-400 font-sans font-normal">अध्यक्ष, BMSVS</span></p>
                 `
             }
@@ -390,9 +377,9 @@
             }
         }
 
-        // Automated 2-second shifting logic interval definitions
-        setInterval(() => { if(upcomingItems.length > 1) { nextSlide('upcoming'); } }, 2000);
-        setInterval(() => { if(completedItems.length > 1) { nextSlide('completed'); } }, 2000);
+        // Automated shifting logic intervals
+        setInterval(() => { if(upcomingItems.length > 1) { nextSlide('upcoming'); } }, 4000);
+        setInterval(() => { if(completedItems.length > 1) { nextSlide('completed'); } }, 4000);
 
         function nextSlide(type) {
             if(type === 'upcoming') { upcomingIdx = (upcomingIdx + 1) % upcomingItems.length; } 
@@ -416,6 +403,11 @@
             document.getElementById('nav-contact').innerText = data.navContact;
             document.getElementById('btn-login').innerText = data.btnLogin;
             document.getElementById('btn-donate').innerText = data.btnDonate;
+            
+            // Re-mapping buttons inside translation switcher safely to fix the crash
+            document.getElementById('btn-nav-apply').querySelector('span').innerText = data.btnNavApply;
+            document.getElementById('btn-nav-about').querySelector('span').innerText = data.btnNavAbout;
+            
             document.getElementById('nav-title-main').innerText = data.navTitleMain;
             document.getElementById('nav-title-sub').innerText = data.navTitleSub;
             document.getElementById('board-divider-text').innerHTML = `<i class="fa-solid fa-gavel"></i> ` + data.boardDivider;
