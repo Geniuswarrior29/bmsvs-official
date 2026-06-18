@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brajlal Memorial Social Development Institute</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif-font { font-family: 'Merriweather', serif; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased scroll-smooth">
+
+    <!-- Top Info Bar + LANGUAGE SWITCHER -->
+    <div class="bg-[#5c061d] text-amber-100/90 text-xs py-2 px-4 border-b border-maroon-800 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div id="top-email"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> info@brajlalmemorial.org</div>
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:block text-slate-300 font-medium" id="top-reg">Registered NGO | Govt. Approved Act</div>
+                <button onclick="switchLanguage()" id="langBtn" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1">
+                    <i class="fa-solid fa-language text-sm"></i> <span>English</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-[37px] z-40 bg-white/95 border-b border-slate-100 shadow-sm backdrop-blur-md">
+        <div class="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3">
+                <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-14 h-14 object-contain">
+                <div class="leading-tight">
+                    <span class="block text-sm sm:text-base font-bold text-[#5c061d] serif-font tracking-tight" id="nav-title-main">बृजलाल मेमोरियल</span>
+                    <span class="block text-[11px] sm:text-xs text-slate-500 font-medium tracking-wide" id="nav-title-sub">सामाजिक विकास संस्थान</span>
+                </div>
+            </a>
+            <nav class="hidden lg:flex space-x-6 text-sm font-semibold text-slate-600">
+                <a href="#about" class="hover:text-[#5c061d] transition" id="nav-about">Our Missions</a>
+                <a href="#meetings" class="hover:text-[#5c061d] transition" id="nav-meet">Meetings</a>
+                <a href="#president" class="hover:text-[#5c061d] transition" id="nav-pres">President's Message</a>
+                <a href="#causes" class="hover:text-[#5c061d] transition" id="nav-work">Our Work</a>
+                <a href="#contact" class="hover:text-[#5c061d] transition" id="nav-contact">Contact</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleModal('loginModal')" class="text-xs sm:text-sm font-bold text-[#5c061d] hover:bg-rose-50 border border-[#5c061d] px-4 py-2 rounded-xl transition" id="btn-login">Member Login</button>
+                <button onclick="toggleModal('donateModal')" class="text-xs sm:text-sm font-bold bg-[#5c061d] hover:bg-[#4a0416] text-white px-5 py-2 rounded-xl shadow-md transition tracking-wide" id="btn-donate">Donate Now</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HIERARCHICAL LEADERSHIP BOARD -->
+    <section class="bg-[#fffdf9] border-b border-amber-100 py-10 shadow-sm">
+        <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+            <!-- Top Row: Swargiy Brajlal Pasi -->
+            <div class="flex justify-center mb-12">
+                <div class="text-center space-y-4 group max-w-xs sm:max-w-sm">
+                    <div class="w-40 h-40 sm:w-48 sm:h-48 mx-auto overflow-hidden rounded-3xl border-4 border-[#5c061d] bg-white shadow-xl transition duration-300 group-hover:scale-105">
+                        <img src="https://i.ibb.co/8LXHVpm0/Whats-App-Image-2026-06-12-at-09-00-10.jpg" alt="स्वर्गीय ब्रजलाल पासी" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="bg-white px-6 py-3 rounded-2xl shadow-md border border-amber-100">
+                        <h3 class="text-base sm:text-xl font-bold text-slate-900 serif-font" id="board-m1-name">स्वर्गीय ब्रजलाल पासी</h3>
+                        <p class="text-xs sm:text-sm font-bold text-[#5c061d] mt-1 uppercase tracking-wide" id="board-m1-post">पूर्व कमिश्नर इनकम टैक्स</p>
+                        <p class="text-[10px] sm:text-xs text-slate-500 font-semibold" id="board-m1-sub">भारत सरकार</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider Line -->
+            <div class="relative flex py-2 items-center justify-center mb-10">
+                <div class="flex-grow border-t border-dashed border-amber-200"></div>
+                <span class="flex-shrink mx-4 text-[#5c061d] text-sm font-bold" id="board-divider-text"><i class="fa-solid fa-gavel"></i> Governing & Patron Board</span>
+                <div class="flex-grow border-t border-dashed border-amber-200"></div>
+            </div>
+
+            <!-- Bottom Row: 4 Members Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-start text-center">
+                <div class="space-y-3 group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto overflow-hidden rounded-2xl border-2 border-[#5c061d] bg-white shadow-md transition duration-300 group-hover:scale-105"><img src="https://i.ibb.co/gbM6MXpB/Whats-App-Image-2026-06-12-at-08-58-30-1.jpg" class="w-full h-full object-cover object-top"></div>
+                    <div><h4 class="text-sm sm:text-base font-bold text-slate-900 serif-font">Rashmi Pasi</h4><p class="text-[10px] sm:text-xs font-semibold text-[#5c061d] mt-0.5 uppercase tracking-wide" id="board-m2-post">President – BMSVS</p></div>
+                </div>
+                <div class="space-y-3 group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto overflow-hidden rounded-2xl border-2 border-[#5c061d] bg-white shadow-md transition duration-300 group-hover:scale-105"><img src="https://i.ibb.co/PvWXVzbk/Whats-App-Image-2026-06-16-at-18-00-58.jpg" class="w-full h-full object-cover object-top"></div>
+                    <div><h4 class="text-sm sm:text-base font-bold text-slate-900 serif-font">Ritu Paswan</h4><p class="text-[10px] sm:text-xs font-semibold text-[#5c061d] mt-0.5 uppercase tracking-wide" id="board-m3-post">Advisor - BMSVS</p></div>
+                </div>
+                <div class="space-y-3 group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto overflow-hidden rounded-2xl border-2 border-amber-500 bg-white shadow-md transition duration-300 group-hover:scale-105"><img src="https://i.ibb.co/Fq8gCkqp/Whats-App-Image-2026-06-12-at-09-00-57.jpg" class="w-full h-full object-cover object-top"></div>
+                    <div><h4 class="text-sm sm:text-base font-bold text-slate-900 serif-font" id="board-m4-name">कमलेश पासवान</h4><p class="text-[10px] sm:text-xs font-semibold text-amber-700 mt-0.5 uppercase tracking-wide" id="board-m4-post">केंद्रीय राज्य मंत्री</p></div>
+                </div>
+                <div class="space-y-3 group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto overflow-hidden rounded-2xl border-2 border-[#5c061d] bg-white shadow-md transition duration-300 group-hover:scale-105"><img src="https://i.ibb.co/dJ5d7jjK/Whats-App-Image-2026-06-12-at-09-01-31.jpg" class="w-full h-full object-cover object-top"></div>
+                    <div><h4 class="text-sm sm:text-base font-bold text-slate-900 serif-font" id="board-m5-name">सिद्धार्थ पासी</h4><p class="text-[10px] sm:text-xs font-semibold text-[#5c061d] mt-0.5 uppercase tracking-wide" id="board-m5-post">संस्थापक - BMSVS</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP AUTOMATIC SLIDER (What We Are Doing / Google Sheets Live) -->
+    <section id="about" class="bg-gradient-to-br from-[#fdf5f7] via-white to-[#fffbf4] py-16 lg:py-20 border-b border-slate-100 relative">
+        <div class="container mx-auto px-4 lg:px-8 max-w-6xl relative">
+            <div class="relative overflow-hidden rounded-3xl bg-white border border-slate-200/60 p-8 shadow-xl min-h-[420px] flex items-center">
+                
+                <!-- Dynamic Content Slider Row -->
+                <div class="grid md:grid-cols-2 gap-8 items-center w-full" id="upcomingSliderContainer">
+                    <div class="text-center md:text-left py-12 w-full col-span-2">
+                        <i class="fa-solid fa-spinner text-3xl text-[#5c061d] animate-spin"></i>
+                        <p class="text-xs text-slate-400 mt-2">Connecting to live Google Sheet records...</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <button onclick="prevSlide('upcoming')" class="absolute left-4 bg-[#5c061d]/10 hover:bg-[#5c061d] text-[#5c061d] hover:text-white p-3 rounded-full transition"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextSlide('upcoming')" class="absolute right-4 bg-[#5c061d]/10 hover:bg-[#5c061d] text-[#5c061d] hover:text-white p-3 rounded-full transition"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULED MEETINGS SECTION (Directly beneath Top Slider) -->
+    <section id="meetings" class="py-16 bg-[#fffdf9] border-b border-amber-100">
+        <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <h2 class="text-2xl lg:text-3xl font-bold text-slate-900 serif-font" id="meet-title">Scheduled Meetings & Panels</h2>
+                <p class="text-xs text-slate-500 mt-2" id="meet-sub">Real-time dynamic timeline synchronized from our spreadsheet directory logs.</p>
+            </div>
+
+            <!-- Grid output wrapper -->
+            <div class="grid md:grid-cols-2 gap-6" id="meetingsContainer">
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl text-center shadow-sm col-span-2">
+                    <i class="fa-solid fa-spinner animate-spin text-[#5c061d] text-2xl"></i>
+                    <p class="text-xs text-slate-400 mt-2">Streaming updates from database engine...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRESIDENT'S MESSAGE SECTION -->
+    <section id="president" class="py-20 bg-white border-b border-slate-100">
+        <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+            <div class="bg-[#fdfbfc] border border-slate-200/60 rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
+                <i class="fa-solid fa-quote-right absolute right-8 bottom-8 text-slate-100 text-9xl -z-0 pointer-events-none"></i>
+                <div class="grid md:grid-cols-3 gap-8 items-start relative z-10">
+                    <div class="md:col-span-1 text-center md:text-left space-y-4">
+                        <div class="w-32 h-32 overflow-hidden rounded-full mx-auto md:mx-0 border-2 border-[#5c061d] bg-white shadow-md"><img src="https://i.ibb.co/gbM6MXpB/Whats-App-Image-2026-06-12-at-08-58-30-1.jpg" class="w-full h-full object-cover"></div>
+                        <div><h3 class="text-xl font-bold text-slate-900 serif-font">Rashmi Pasi</h3><p class="text-xs font-bold text-[#5c061d] uppercase tracking-wider mt-1" id="pres-card-post">President – BMSVS</p></div>
+                    </div>
+                    <div class="md:col-span-2 space-y-4">
+                        <h2 class="text-2xl font-bold text-[#5c061d] serif-font tracking-tight" id="pres-title">President's Message</h2>
+                        <div class="text-sm text-slate-600 space-y-4 leading-relaxed text-justify" id="pres-paragraphs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY PROGRAM PILLARS SECTION -->
+    <section id="causes" class="py-16 bg-[#fcf9fa] border-b border-slate-100">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <h2 class="text-2xl lg:text-3xl font-bold text-slate-900 serif-font" id="work-title">Our Key Pillars of Core Action</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-rose-50 text-[#5c061d] rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-book-open"></i></div>
+                        <h3 class="font-bold text-slate-900 tracking-tight text-base serif-font" id="p1-title">Education & Literacy</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed" id="p1-desc">Providing basic learning kits, student mentoring frameworks, and distribution loops.</p>
+                    </div>
+                    <button onclick="toggleModal('donateModal')" class="mt-6 text-xs font-bold text-[#5c061d] hover:underline text-left flex items-center gap-1.5" id="p1-btn">Sponsor</button>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-leaf"></i></div>
+                        <h3 class="font-bold text-slate-900 tracking-tight text-base serif-font" id="p2-title">Environment & Youth</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed" id="p2-desc">Spreading green awareness drives, tree plantation clusters, and setting leadership camps.</p>
+                    </div>
+                    <button onclick="toggleModal('donateModal')" class="mt-6 text-xs font-bold text-amber-700 hover:underline text-left flex items-center gap-1.5" id="p2-btn">Support</button>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-hand-holding-hand"></i></div>
+                        <h3 class="font-bold text-slate-900 tracking-tight text-base serif-font" id="p3-title">Women Empowerment</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed" id="p3-desc">Structuring self-reliance modules through skill dynamic groups and artisanal mentoring.</p>
+                    </div>
+                    <button onclick="toggleModal('donateModal')" class="mt-6 text-xs font-bold text-emerald-700 hover:underline text-left flex items-center gap-1.5" id="p3-btn">Empower</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOTTOM AUTOMATIC SLIDER (What We Have Done / Achievements from Sheets) -->
+    <section class="py-12 bg-white border-b border-slate-100">
+        <div class="container mx-auto px-4 lg:px-8 max-w-6xl relative">
+            <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 shadow-xl min-h-[400px] flex items-center">
+                
+                <!-- Dynamic Content Holder -->
+                <div class="grid md:grid-cols-2 gap-8 items-center w-full" id="completedSliderContainer">
+                    <div class="text-center md:text-left py-12 w-full col-span-2">
+                        <i class="fa-solid fa-spinner text-3xl text-amber-400 animate-spin"></i>
+                        <p class="text-xs text-slate-500 mt-2">Syncing historical accomplishments data block...</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <button onclick="prevSlide('completed')" class="absolute left-4 bg-white/10 hover:bg-amber-400 text-white hover:text-slate-950 p-3 rounded-full transition"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextSlide('completed')" class="absolute right-4 bg-white/10 hover:bg-amber-400 text-white hover:text-slate-950 p-3 rounded-full transition"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT BLOCK & FORM -->
+    <section id="contact" class="py-16 bg-[#faf9fa]">
+        <div class="container mx-auto px-4 lg:px-8 max-w-4xl bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-[#5c061d] serif-font" id="form-heading">Reach Our Office</h2>
+                    <p class="text-xs text-slate-500 leading-relaxed" id="form-sub">Want to align or request verified administrative summaries?</p>
+                    <hr class="border-slate-100">
+                    <div class="space-y-3 text-xs text-slate-600">
+                        <p><i class="fa-solid fa-location-dot text-[#5c061d] mr-2"></i> <span id="form-addr">Raebareli Headquarters, Uttar Pradesh, India</span></p>
+                        <p><i class="fa-solid fa-phone text-[#5c061d] mr-2"></i> +91 8957799335</p>
+                    </div>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Message Processed!');" class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1" id="label-name">Full Name</label>
+                        <input type="text" required placeholder="John Doe" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#5c061d]">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1" id="label-msg">Your Message Query</label>
+                        <textarea rows="3" required placeholder="Describe your query..." class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#5c061d]"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-[#5c061d] hover:bg-[#4a0416] text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm uppercase tracking-wider" id="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="loginModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 relative">
+            <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-base font-bold text-[#5c061d] serif-font text-center">Member Desk Login</h3>
+            <form onsubmit="event.preventDefault(); toggleModal('loginModal');" class="space-y-3"><input type="text" placeholder="ID" class="w-full border p-2 rounded-xl text-xs"><button type="submit" class="w-full bg-[#5c061d] text-white py-2 rounded-xl text-xs font-bold">Login</button></form>
+        </div>
+    </div>
+    <div id="donateModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 relative">
+            <button onclick="toggleModal('donateModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-base font-bold text-[#5c061d] serif-font text-center">Sponsor Fund</h3>
+            <form onsubmit="event.preventDefault(); toggleModal('donateModal');" class="space-y-3"><input type="number" placeholder="Amount" class="w-full border p-2 rounded-xl text-xs"><button type="submit" class="w-full bg-amber-500 text-slate-950 py-2 rounded-xl text-xs font-bold">Donate</button></form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#0f172a] text-slate-400 py-6 text-center text-xs mt-auto">
+        <p class="text-white font-bold serif-font" id="footer-title">बृजलाल मेमोरियल सामाजिक विकास संस्थान</p>
+        <p>© 2026 Brajlal Memorial Institute. All Rights Reserved.</p>
+    </footer>
+
+    <!-- ENGINE CODE MODULE CORE LOGIC PIPELINES -->
+    <script>
+        let currentLang = 'HI';
+        let upcomingItems = [];
+        let completedItems = [];
+        let globalMeetings = [];
+        let upcomingIdx = 0;
+        let completedIdx = 0;
+
+        // Your Direct SheetDB URL Endpoint
+        const DATA_API_URL = "https://sheetdb.io/api/v1/46wqmsnup336m"; 
+
+        const dictionary = {
+            EN: {
+                langBtn: "हिंदी", topReg: "Registered NGO | Govt. Approved Act",
+                navAbout: "Our Missions", navPres: "President's Message", navMeet: "Schedules", navWork: "Core Action", navContact: "Contact",
+                btnLogin: "Member Login", btnDonate: "Donate Now",
+                navTitleMain: "Brajlal Memorial", navTitleSub: "Social Development Institute",
+                boardDivider: "Governing & Patron Board",
+                meetTitle: "Scheduled Panels & Live Meetings", meetSub: "Real-time updates fetched from server logs instantly.",
+                formHeading: "Reach Our Office", formSub: "Have inquiries?", formAddr: "Raebareli, UP, India",
+                labelName: "Full Name", labelMsg: "Your Query", btnSubmit: "Send Message",
+                presCardPost: "President - BMSVS", presTitle: "President's Message",
+                footerTitle: "Brajlal Memorial Social Development Institute",
+                presBody: `
+                    <p class="font-semibold text-slate-800">Dear Friends,</p>
+                    <p>The Brajlal Memorial Social Development Institute was established to carry forward the vision, values, and legacy of Late Shri Brajlal Ji, who dedicated his life to social service, community welfare, and the upliftment of underprivileged sections of society. He believed that every individual deserves access to education, dignity, equal opportunities, and a better quality of life.</p>
+                    <p>His dream was to build a society that is educated, empowered, self-reliant, and united. He consistently worked for social harmony, women's empowerment, environmental awareness, youth development, and support for those in need. His commitment to humanity continues to inspire our mission and activities.</p>
+                    <p>Today, our institute strives to transform his vision into reality through various programs focused on education, health, skill development, environmental conservation, and community empowerment. We remain committed to creating sustainable opportunities and bringing positive change to society.</p>
+                    <p>I sincerely thank all our members, volunteers, supporters, and well-wishers for their continued trust and cooperation. Together, we can fulfill the dreams of Brajlal Ji and build a stronger, more inclusive, and compassionate society for future generations.</p>
+                    <p class="font-bold text-[#5c061d] serif-font mt-2">Rashmi Pasi<br><span class="text-xs text-slate-400 font-sans font-normal">President, BMSVS</span></p>
+                `
+            },
+            HI: {
+                langBtn: "English", topReg: "पंजीकृत एनजीओ | भारत सरकार द्वारा स्वीकृत अधिनियम",
+                navAbout: "सक्रिय मिशन", navPres: "अध्यक्ष का संदेश", navMeet: "बैठकें", navWork: "मुख्य स्तंभ", navContact: "संपर्क",
+                btnLogin: "सदस्य लॉगिन", btnDonate: "दान करें",
+                navTitleMain: "बृजलाल मेमोरियल", navTitleSub: "सामाजिक विकास संस्थान",
+                boardDivider: "शासी एवं संरक्षक बोर्ड",
+                meetTitle: "निर्धारित बैठकें और समितियां", meetSub: "सक्रिय कार्यसूची निर्धारण और लाइव पैनल विवरण की रियल-टाइम जानकारी।",
+                formHeading: "कार्यालय संपर्क", formSub: "कोई प्रश्न है?", formAddr: "रायबरेली, उत्तर प्रदेश, भारत",
+                labelName: "पूरा नाम", labelMsg: "आपका संदेश", btnSubmit: "सुरक्षित संदेश भेजें",
+                presCardPost: "अध्यक्ष - BMSVS", presTitle: "अध्यक्ष का संदेश",
+                footerTitle: "बृजलाल मेमोरियल सामाजिक विकास संस्थान",
+                presBody: `
+                    <p class="font-semibold text-slate-800">प्रिय मित्रों,</p>
+                    <p>बृजलाल मेमोरियल सामाजिक विकास संस्थान की स्थापना स्वर्गीय श्री बृजलाल जी के दृष्टिकोण, मूल्यों और विरासत को आगे बढ़ाने के लिए की गई थी, जिन्होंने अपना जीवन सामाजिक सेवा, सामुदायिक कल्याण tobacco समाज के वंचित वर्गों के उत्थान के लिए समर्पित कर दिया। उनका मानना था कि प्रत्येक व्यक्ति शिक्षा, गरिमा, समान अवसर और बेहतर जीवन स्तर का हकदार है।</p>
+                    <p>उनका सपना एक ऐसा समाज बनाने का था जो शिक्षित, सशक्त, आत्मनिर्भर और संगठित हो। उन्होंने सामाजिक समरसता, महिला सशक्तिकरण, पर्यावरण जागरूकता, युवा विकास और जरूरतमंदों की सहायता के लिए लगातार काम किया। मानवता के प्रति उनकी प्रतिबद्धता हमारे..."</p>
+                    <p>आज, हमारा संस्थान शिक्षा, स्वास्थ्य, कौशल विकास, पर्यावरण संरक्षण और सामुदायिक सशक्तिकरण पर केंद्रित विभिन्न कार्यक्रमों के माध्यम से उनके दृष्टिकोण को वास्तविकता में बदलने का प्रयास करता है। हम स्थायी अवसर पैदा करने और समाज में सकारात्मक बदलाव लाने के लिए..."</p>
+                    <p>मैं अपने सभी सदस्यों, स्वयंसेवकों, समर्थकों और शुभचिंतकों को उनके निरंतर विश्वास और सहयोग के लिए धन्यवाद देती हूं। साथ मिलकर, हम बृजलाल जी के सपनों को पूरा कर सकते हैं और आने वाली पीढ़ियों के लिए एक मजबूत, अधिक समावेशी और करुणामय समाज का निर्माण कर सकते हैं।</p>
+                    <p class="font-bold text-[#5c061d] serif-font mt-2">रश्मि पासी<br><span class="text-xs text-slate-400 font-sans font-normal">अध्यक्ष, BMSVS</span></p>
+                `
+            }
+        };
+
+        // Real-time Data Fetch Pipeline from SheetDB API
+        async function fetchSheetsData() {
+            try {
+                const response = await fetch(DATA_API_URL);
+                const allRows = await response.json();
+
+                // Sort Rows into respective modules based on Type column
+                upcomingItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "UPCOMING");
+                completedItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "COMPLETED");
+                globalMeetings = allRows.filter(row => row.Type && row.Type.toUpperCase() === "MEETING");
+
+                renderSliders();
+                renderMeetings();
+            } catch (err) {
+                console.error("Sheets integration failed, displaying backup UI state: ", err);
+            }
+        }
+
+        function renderSliders() {
+            // Upper Slider rendering logic block
+            const upContainer = document.getElementById('upcomingSliderContainer');
+            if(upcomingItems.length > 0) {
+                const up = upcomingItems[upcomingIdx];
+                upContainer.innerHTML = `
+                    <div class="space-y-4 animate-fadeIn">
+                        <span class="bg-amber-100 text-[#5c061d] text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">${currentLang === 'HI' ? 'वर्तमान में जारी कार्य' : 'Active Mission'}</span>
+                        <h2 class="text-2xl md:text-4xl font-bold text-slate-900 serif-font">${currentLang === 'HI' ? up.HeadingHI : up.HeadingEN}</h2>
+                        <p class="text-sm text-slate-600 leading-relaxed">${currentLang === 'HI' ? up.ParagraphHI : up.ParagraphEN}</p>
+                    </div>
+                    <div class="h-64 rounded-2xl overflow-hidden border shadow-inner animate-fadeIn"><img src="${up.ImageURL}" class="w-full h-full object-cover"></div>
+                `;
+            } else {
+                upContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400">No active mission cards in sheet.</div>`;
+            }
+
+            // Lower Slider rendering logic block
+            const compContainer = document.getElementById('completedSliderContainer');
+            if(completedItems.length > 0) {
+                const comp = completedItems[completedIdx];
+                compContainer.innerHTML = `
+                    <div class="space-y-4 animate-fadeIn">
+                        <span class="bg-white/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">${currentLang === 'HI' ? 'सफलतापूर्वक संपन्न' : 'Accomplished'}</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white serif-font">${currentLang === 'HI' ? comp.HeadingHI : comp.HeadingEN}</h2>
+                        <p class="text-sm text-slate-400 leading-relaxed">${currentLang === 'HI' ? comp.ParagraphHI : comp.ParagraphEN}</p>
+                    </div>
+                    <div class="h-56 rounded-2xl overflow-hidden border border-slate-800 animate-fadeIn"><img src="${comp.ImageURL}" class="w-full h-full object-cover"></div>
+                `;
+            } else {
+                compContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-500">No milestone rows configured yet.</div>`;
+            }
+        }
+
+        function renderMeetings() {
+            const container = document.getElementById('meetingsContainer');
+            if(globalMeetings.length > 0) {
+                container.innerHTML = globalMeetings.map(m => `
+                    <div class="p-6 bg-white border border-slate-200/80 rounded-2xl shadow-sm flex flex-col justify-between hover:border-[#5c061d]/40 transition animate-fadeIn">
+                        <div class="space-y-2">
+                            <div class="text-xs font-bold text-amber-600"><i class="fa-regular fa-clock mr-1"></i> ${currentLang === 'HI' ? m.ParagraphHI : m.ParagraphEN}</div>
+                            <h3 class="font-bold text-slate-900 text-sm md:text-base border-b border-slate-100 pb-2">${currentLang === 'HI' ? m.HeadingHI : m.HeadingEN}</h3>
+                        </div>
+                        <a href="${m.ImageURL}" target="_blank" class="mt-4 bg-[#5c061d] text-white hover:bg-[#4a0416] text-center font-bold py-2 rounded-xl text-xs transition tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-video"></i> ${currentLang === 'HI' ? 'बैठक लिंक' : 'Access Meeting Link'}
+                        </a>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400 p-4 bg-white border rounded-xl">No active panel schedules found.</div>`;
+            }
+        }
+
+        // Automated 2-second shifting logic interval definitions
+        setInterval(() => { if(upcomingItems.length > 1) { nextSlide('upcoming'); } }, 2000);
+        setInterval(() => { if(completedItems.length > 1) { nextSlide('completed'); } }, 2000);
+
+        function nextSlide(type) {
+            if(type === 'upcoming') { upcomingIdx = (upcomingIdx + 1) % upcomingItems.length; } 
+            else { completedIdx = (completedIdx + 1) % completedItems.length; }
+            renderSliders();
+        }
+        function prevSlide(type) {
+            if(type === 'upcoming') { upcomingIdx = (upcomingIdx - 1 + upcomingItems.length) % upcomingItems.length; } 
+            else { completedIdx = (completedIdx - 1 + completedItems.length) % completedItems.length; }
+            renderSliders();
+        }
+
+        function renderLanguage() {
+            const data = dictionary[currentLang];
+            document.getElementById('langBtn').querySelector('span').innerText = data.langBtn;
+            document.getElementById('top-reg').innerText = data.topReg;
+            document.getElementById('nav-about').innerText = data.navAbout;
+            document.getElementById('nav-pres').innerText = data.navPres;
+            document.getElementById('nav-meet').innerText = data.navMeet;
+            document.getElementById('nav-work').innerText = data.navWork;
+            document.getElementById('nav-contact').innerText = data.navContact;
+            document.getElementById('btn-login').innerText = data.btnLogin;
+            document.getElementById('btn-donate').innerText = data.btnDonate;
+            document.getElementById('nav-title-main').innerText = data.navTitleMain;
+            document.getElementById('nav-title-sub').innerText = data.navTitleSub;
+            document.getElementById('board-divider-text').innerHTML = `<i class="fa-solid fa-gavel"></i> ` + data.boardDivider;
+            document.getElementById('meet-title').innerText = data.meetTitle;
+            document.getElementById('meet-sub').innerText = data.meetSub;
+            document.getElementById('form-heading').innerText = data.formHeading;
+            document.getElementById('form-sub').innerText = data.formSub;
+            document.getElementById('form-addr').innerText = data.formAddr;
+            document.getElementById('label-name').innerText = data.labelName;
+            document.getElementById('label-msg').innerText = data.labelMsg;
+            document.getElementById('btn-submit').innerText = data.btnSubmit;
+            document.getElementById('pres-card-post').innerText = data.presCardPost;
+            document.getElementById('pres-title').innerText = data.presTitle;
+            document.getElementById('pres-paragraphs').innerHTML = data.presBody;
+            document.getElementById('footer-title').innerText = data.footerTitle;
+            renderSliders();
+            renderMeetings();
+        }
+
+        function switchLanguage() {
+            currentLang = (currentLang === 'HI') ? 'EN' : 'HI';
+            renderLanguage();
+        }
+
+        window.onload = function() {
+            renderLanguage();
+            fetchSheetsData();
+        };
+        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+    </script>
+</body>
+</html>
