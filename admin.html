@@ -3,87 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membership Portal | Brajlal Memorial Institute</title>
+    <title>Admin Dashboard | Management Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .serif-font { font-family: 'Merriweather', serif; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
+        .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
     </style>
 </head>
-<body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <header class="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50 py-3">
-        <div class="container mx-auto px-4 lg:px-8 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-12 h-12 object-contain">
-                <div class="leading-tight">
-                    <span class="block text-sm font-bold text-[#5c061d] serif-font">बृजलाल मेमोरियल</span>
-                    <span class="block text-[10px] text-slate-500 font-medium">सामाजिक विकास संस्थान</span>
-                </div>
-            </a>
-            <a href="index.html" class="text-xs font-bold text-slate-600 hover:text-[#5c061d] transition"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Home</a>
+    <header class="bg-[#5c061d] text-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-user-shield text-2xl text-amber-400"></i>
+            <h1 class="text-lg font-bold tracking-wide">Brajlal Memorial Institute | Management Terminal</h1>
         </div>
+        <a href="index.html" class="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-4 py-2 rounded-xl transition"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Site</a>
     </header>
 
-    <main class="container mx-auto px-4 lg:px-8 max-w-5xl py-12 flex-grow grid md:grid-cols-3 gap-8">
-        <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-md h-fit">
-            <div class="border-b pb-4 mb-6">
-                <h1 class="text-xl font-bold text-[#5c061d] serif-font">सदस्यता के लिए आवेदन करें</h1>
-                <p class="text-xs text-slate-500 mt-1">कृपया डिजिटल आईडी कार्ड जनरेशन के लिए अपनी सही जानकारी भरें।</p>
-            </div>
-
-            <form id="membershipForm" onsubmit="handleApplicationSubmit(event)" class="space-y-4">
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <input type="text" id="regName" required placeholder="Full Name" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                    <input type="tel" id="regPhone" required placeholder="Mobile Number" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                </div>
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <input type="email" id="regEmail" required placeholder="Email Address" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                    <input type="text" id="regIdProof" required placeholder="Aadhar Card Number" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                </div>
-                <textarea id="regAddress" required rows="2" placeholder="Permanent Address" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]"></textarea>
-                
-                <div class="grid sm:grid-cols-2 gap-4 border border-dashed rounded-xl bg-slate-50/50 p-4">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1"><i class="fa-regular fa-image mr-1 text-[#5c061d]"></i> अपनी प्रोफाइल फोटो चुनें</label>
-                        <input type="file" id="regPhotoFile" accept="image/*" required class="text-xs text-slate-500">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1"><i class="fa-solid fa-receipt mr-1 text-[#5c061d]"></i> भुगतान स्क्रीनशॉट (Screenshot)</label>
-                        <input type="file" id="regScreenshotFile" accept="image/*" required class="text-xs text-slate-500">
-                    </div>
-                </div>
-                <button type="submit" id="btn-submit" class="w-full bg-[#5c061d] hover:bg-[#4a0416] text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider shadow-md">आवेदन जमा करें</button>
-            </form>
+    <main class="container mx-auto px-4 py-8 max-w-7xl space-y-6 flex-grow">
+        
+        <div class="flex border-b border-slate-200 gap-2 bg-white p-2 rounded-xl shadow-sm">
+            <button onclick="switchTab('PENDING')" id="tab-PENDING" class="flex-1 md:flex-none px-6 py-2.5 font-bold text-xs rounded-lg transition text-white bg-[#5c061d]">
+                <i class="fa-solid fa-clock mr-1.5"></i> Pending (<span id="count-PENDING">0</span>)
+            </button>
+            <button onclick="switchTab('APPROVED')" id="tab-APPROVED" class="flex-1 md:flex-none px-6 py-2.5 font-bold text-xs rounded-lg transition text-slate-600 hover:bg-slate-50">
+                <i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i> Approved (<span id="count-APPROVED">0</span>)
+            </button>
+            <button onclick="switchTab('REJECTED')" id="tab-REJECTED" class="flex-1 md:flex-none px-6 py-2.5 font-bold text-xs rounded-lg transition text-slate-600 hover:bg-slate-50">
+                <i class="fa-solid fa-circle-xmark text-rose-500 mr-1.5"></i> Rejected (<span id="count-REJECTED">0</span>)
+            </button>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md text-center space-y-4 h-fit">
-            <div class="w-10 h-10 bg-amber-50 text-[#5c061d] rounded-full flex items-center justify-center text-lg mx-auto shadow-sm">
-                <i class="fa-solid fa-qrcode"></i>
-            </div>
-            <div class="leading-tight">
-                <h3 class="font-bold text-slate-900 text-sm serif-font">सदस्यता शुल्क भुगतान (UPI Scan)</h3>
-                <p class="text-[11px] text-slate-400 mt-1">QR Code को स्कैन करें और भुगतान का स्क्रीनशॉट फॉर्म में अपलोड करें।</p>
-            </div>
-            
-            <div class="bg-slate-50 p-2 border border-slate-100 rounded-xl max-w-[240px] mx-auto shadow-inner overflow-hidden">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=rashmividhi20@okhdfcbank&pn=Rashmi&cu=INR" alt="BMSVS Official Payment QR" class="w-full h-auto rounded-lg mx-auto">
-            </div>
-            <div class="text-[11px] font-mono text-slate-600 bg-slate-50 p-2 rounded-xl border font-bold">
-                UPI ID: rashmividhi20@okhdfcbank
+        <div class="grid grid-cols-1 gap-6" id="adminGridContainer">
+            <div class="text-center py-12 text-slate-400 text-sm">
+                <i class="fa-solid fa-spinner animate-spin text-2xl text-[#5c061d] mr-2"></i> Fetching records from live database...
             </div>
         </div>
     </main>
 
-    <footer class="bg-[#0f172a] text-slate-500 py-4 text-center text-xs mt-auto">© 2026 Brajlal Memorial Institute.</footer>
+    <footer class="bg-[#0f172a] text-slate-500 py-4 text-center text-xs mt-auto">© 2026 Brajlal Memorial Institute | Management Console.</footer>
 
     <script>
         const firebaseConfig = {
@@ -100,62 +65,141 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let photoBase64 = "";
-        let screenshotBase64 = "";
+        let currentActiveTab = "PENDING";
+        let globalDatabaseCache = {};
 
-        // Reader functions converting formats into pure binary raw database texts
-        document.getElementById('regPhotoFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) { photoBase64 = ev.target.result; };
-                reader.readAsDataURL(file);
-            }
+        // Realtime Data Sync
+        db.ref('applications').on('value', (snapshot) => {
+            globalDatabaseCache = snapshot.val() || {};
+            renderRecordsGrid();
         });
 
-        document.getElementById('regScreenshotFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) { screenshotBase64 = ev.target.result; };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        async function handleApplicationSubmit(e) {
-            e.preventDefault();
-            if(!photoBase64 || !screenshotBase64) return alert("दोनों फाइलें लोड होने दें!");
+        function switchTab(tabStatus) {
+            currentActiveTab = tabStatus;
             
-            const submitBtn = document.getElementById('btn-submit');
-            submitBtn.innerText = "Saving Data securely...";
-            submitBtn.disabled = true;
+            // Tab Buttons Styling Update
+            ["PENDING", "APPROVED", "REJECTED"].forEach(status => {
+                const btn = document.getElementById(`tab-${status}`);
+                if(status === tabStatus) {
+                    btn.className = "px-6 py-2.5 font-bold text-xs rounded-lg transition text-white bg-[#5c061d]";
+                } else {
+                    btn.className = "px-6 py-2.5 font-bold text-xs rounded-lg transition text-slate-600 hover:bg-slate-50";
+                }
+            });
+            
+            renderRecordsGrid();
+        }
 
-            const memberRef = db.ref('applications').push();
-            const memberId = memberRef.key;
+        function renderRecordsGrid() {
+            const container = document.getElementById('adminGridContainer');
+            container.innerHTML = "";
 
-            try {
-                await memberRef.set({
-                    memberId: memberId,
-                    name: document.getElementById('regName').value.trim(),
-                    phone: document.getElementById('regPhone').value.trim(),
-                    email: document.getElementById('regEmail').value.trim(),
-                    aadhar: document.getElementById('regIdProof').value.trim(),
-                    address: document.getElementById('regAddress').value.trim(),
-                    photo: photoBase64,          // Saved safely inside database tree
-                    screenshot: screenshotBase64,  // Saved safely inside database tree
-                    status: "PENDING",
-                    timestamp: new Date().toISOString()
-                });
+            let counts = { PENDING: 0, APPROVED: 0, REJECTED: 0 };
+            
+            // Count items for each status tab
+            Object.keys(globalDatabaseCache).forEach(key => {
+                const item = globalDatabaseCache[key];
+                const status = (item.status || "PENDING").toUpperCase().trim();
+                if(counts[status] !== undefined) counts[status]++;
+            });
 
-                alert(`आवेदन सबमिट हो गया!\nआपका Token ID है: ${memberId}`);
-                document.getElementById('membershipForm').reset();
-                photoBase64 = ""; screenshotBase64 = "";
-            } catch (err) {
-                alert("Error sending dataset.");
-            } finally {
-                submitBtn.innerText = "आवेदन जमा करें";
-                submitBtn.disabled = false;
+            // Update tab badges counter numbers
+            document.getElementById('count-PENDING').innerText = counts.PENDING;
+            document.getElementById('count-APPROVED').innerText = counts.APPROVED;
+            document.getElementById('count-REJECTED').innerText = counts.REJECTED;
+
+            let currentViewCounter = 0;
+
+            Object.keys(globalDatabaseCache).forEach(key => {
+                const item = globalDatabaseCache[key];
+                const itemStatus = (item.status || "PENDING").toUpperCase().trim();
+
+                if (itemStatus === currentActiveTab) {
+                    currentViewCounter++;
+                    
+                    const memberPhotoSrc = item.photo ? item.photo : "https://via.placeholder.com/150?text=No+Photo";
+                    const paymentSnapSrc = item.screenshot ? item.screenshot : "https://via.placeholder.com/300x400?text=No+Screenshot";
+
+                    // Dynamic action buttons according to tabs context
+                    let actionButtonsHtml = "";
+                    if(currentActiveTab === "PENDING") {
+                        actionButtonsHtml = `
+                            <button onclick="updateMemberStatus('${key}', 'APPROVED')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-circle-check"></i> Approve
+                            </button>
+                            <button onclick="updateMemberStatus('${key}', 'REJECTED')" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-circle-xmark"></i> Reject
+                            </button>`;
+                    } else if(currentActiveTab === "APPROVED") {
+                        actionButtonsHtml = `
+                            <span class="text-center text-xs font-bold text-emerald-600 bg-emerald-50 py-2 rounded-xl border border-emerald-200 block"><i class="fa-solid fa-check-double"></i> Already Approved</span>
+                            <button onclick="updateMemberStatus('${key}', 'REJECTED')" class="w-full text-rose-500 hover:bg-rose-50 text-xs font-bold py-2 rounded-xl transition mt-2">Move to Reject</button>`;
+                    } else if(currentActiveTab === "REJECTED") {
+                        actionButtonsHtml = `
+                            <span class="text-center text-xs font-bold text-rose-600 bg-rose-50 py-2 rounded-xl border border-rose-200 block"><i class="fa-solid fa-ban"></i> Already Rejected</span>
+                            <button onclick="updateMemberStatus('${key}', 'APPROVED')" class="w-full text-emerald-600 hover:bg-emerald-50 text-xs font-bold py-2 rounded-xl transition mt-2">Re-Approve Profile</button>`;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "bg-white border border-slate-200 rounded-2xl p-6 shadow-sm grid md:grid-cols-4 gap-6 items-center animate-fadeIn";
+                    card.innerHTML = `
+                        <div class="space-y-2 leading-tight md:col-span-1 text-xs">
+                            <h3 class="text-base font-bold text-slate-900 tracking-tight">${item.name || 'N/A'}</h3>
+                            <p class="text-slate-700 font-mono font-bold select-all bg-slate-100 p-1.5 rounded border border-slate-200 truncate">ID: ${key}</p>
+                            <p class="text-slate-600 font-semibold"><i class="fa-solid fa-phone mr-1.5 text-[#5c061d]"></i>${item.phone || 'N/A'}</p>
+                            <p class="text-slate-600"><i class="fa-solid fa-envelope mr-1.5"></i>${item.email || 'N/A'}</p>
+                            <p class="text-slate-600"><i class="fa-solid fa-id-card mr-1.5 text-slate-400"></i>Aadhar: ${item.aadhar || 'N/A'}</p>
+                            <p class="text-slate-500 bg-slate-50 p-2 rounded-lg border text-[11px] max-h-16 overflow-y-auto"><i class="fa-solid fa-map-marker-alt"></i> ${item.address || 'No Address.'}</p>
+                        </div>
+                        
+                        <div class="text-center space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Member Photo</span>
+                            <div class="h-44 w-full border border-slate-100 rounded-xl overflow-hidden bg-slate-50 shadow-inner group relative">
+                                <img src="${memberPhotoSrc}" class="w-full h-full object-cover">
+                                <button onclick="openFullImage('${key}', 'photo')" class="absolute inset-0 bg-black/40 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-plus"></i> View Full</button>
+                            </div>
+                        </div>
+
+                        <div class="text-center space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Payment Screenshot</span>
+                            <div class="h-44 w-full border border-slate-100 rounded-xl overflow-hidden bg-slate-50 shadow-inner group relative">
+                                <img src="${paymentSnapSrc}" class="w-full h-full object-cover">
+                                <button onclick="openFullImage('${key}', 'screenshot')" class="absolute inset-0 bg-black/40 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition flex items-center justify-center"><i class="fa-solid fa-magnifying-glass-plus"></i> View Full</button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2 md:pl-4 w-full">
+                            ${actionButtonsHtml}
+                        </div>`;
+                    container.appendChild(card);
+                }
+            });
+
+            if (currentViewCounter === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-12 border border-slate-200 rounded-2xl text-center text-slate-500 font-bold max-w-md mx-auto shadow-sm">
+                        <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300 block"></i>
+                        No applications matched inside the "${currentActiveTab}" tab menu.
+                    </div>`;
             }
+        }
+
+        async function updateMemberStatus(keyId, statusValue) {
+            try {
+                await db.ref(`applications/${keyId}`).update({ status: statusValue });
+                alert(`Record state transitioned to ${statusValue}!`);
+            } catch (err) { alert("Database sync failed."); }
+        }
+
+        async function openFullImage(keyId, fieldType) {
+            try {
+                const snapshot = await db.ref(`applications/${keyId}/${fieldType}`).once('value');
+                const rawBase64 = snapshot.val();
+                if (rawBase64) {
+                    const newTab = window.open();
+                    newTab.document.body.innerHTML = `<body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh;"><img src="${rawBase64}" style="max-width:100%; max-height:100vh; object-fit:contain;"></body>`;
+                }
+            } catch (e) { alert("Error opening image."); }
         }
     </script>
 </body>
