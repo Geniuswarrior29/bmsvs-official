@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Firebase Realtime</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase Compat Modules Core CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Navigation Banner -->
+    <header class="bg-[#5c061d] text-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-user-shield text-2xl text-amber-400"></i>
+            <h1 class="text-lg font-bold tracking-wide">Brajlal Memorial Institute | Live Admin Desk</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-4 py-2 rounded-xl transition"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Site</a>
+            <span class="bg-emerald-500 text-white px-4 py-1 rounded-full font-bold text-xs">Realtime Sync Active</span>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="container mx-auto px-4 py-8 max-w-7xl space-y-6 flex-grow">
+        <div class="flex justify-between items-center border-b pb-4">
+            <h2 class="text-xl font-bold text-[#5c061d] flex items-center gap-2">
+                <i class="fa-solid fa-clock-history text-amber-500"></i> Pending Verifications Pipeline (<span id="pendingCount">0</span>)
+            </h2>
+        </div>
+
+        <!-- Cards Live Stream Grid Holder -->
+        <div class="grid grid-cols-1 gap-6" id="adminGridContainer">
+            <div class="text-center py-12 text-slate-400 text-sm">
+                <i class="fa-solid fa-spinner animate-spin text-2xl text-[#5c061d] mr-2"></i> Listening to Firebase realtime stream data strings...
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Summary Block -->
+    <footer class="bg-[#0f172a] text-slate-500 py-4 text-center text-xs mt-auto">© 2026 Brajlal Memorial Institute | Admin Terminal.</footer>
+
+    <script>
+        // Official Firebase Web App Configuration Parameters
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6MFWKZVDSu1i4QXM5ZNcnd2myuLs1Pyo",
+            authDomain: "bmsvs-hosting.firebaseapp.com",
+            projectId: "bmsvs-hosting",
+            storageBucket: "bmsvs-hosting.firebasestorage.app",
+            messagingSenderId: "527539594907",
+            appId: "1:527539594907:web:2b67ba480ae460d7a6483e",
+            measurementId: "G-D1LEG857WT",
+            databaseURL: "https://bmsvs-hosting-default-rtdb.firebaseio.com"
+        };
+
+        // Initialize App context mapping
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Realtime continuous dynamic tracking loop observer
+        db.ref('applications').on('value', (snapshot) => {
+            const container = document.getElementById('adminGridContainer');
+            container.innerHTML = "";
+            let pendingCounter = 0;
+
+            const data = snapshot.val();
+            if (!data) {
+                container.innerHTML = `
+                    <div class="bg-white p-12 border rounded-2xl text-center text-slate-400 font-medium max-w-md mx-auto shadow-sm">
+                        <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300 block"></i>
+                        Database instance is clean. No rows exist in database node tree yet.
+                    </div>`;
+                document.getElementById('pendingCount').innerText = "0";
+                return;
+            }
+
+            // Loop across all raw generated push node objects inside firebase
+            Object.keys(data).forEach(key => {
+                const item = data[key];
+                
+                // Render cards strictly if their dynamic execution data status field is pending
+                if (item.status && item.status.toUpperCase().trim() === "PENDING") {
+                    pendingCounter++;
+                    
+                    // Fallback placeholders logic checking for base64 image strings format structures
+                    const memberPhotoSrc = item.photo ? item.photo : "https://via.placeholder.com/150?text=No+Photo";
+                    const paymentSnapSrc = item.screenshot ? item.screenshot : "https://via.placeholder.com/300x400?text=No+Screenshot";
+
+                    const card = document.createElement('div');
+                    card.className = "bg-white border border-slate-200 rounded-2xl p-6 shadow-sm grid md:grid-cols-4 gap-6 items-center transform transition duration-200 hover:shadow-md animate-fadeIn";
+                    card.innerHTML = `
+                        <!-- Section 1: Detailed Metadata Field Parameters -->
+                        <div class="space-y-2 leading-tight md:col-span-1 text-xs">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">Verification Required</span>
+                            <h3 class="text-base font-bold text-slate-900 tracking-tight pt-1">${item.name || 'N/A'}</h3>
+                            <p class="text-amber-800 font-mono font-bold select-all bg-amber-50/50 p-1 rounded border border-amber-100/40">Key ID: ${key}</p>
+                            <p class="text-slate-600 font-semibold"><i class="fa-solid fa-phone mr-1.5 text-[#5c061d]"></i>${item.phone || 'N/A'}</p>
+                            <p class="text-slate-600"><i class="fa-solid fa-envelope mr-1.5"></i>${item.email || 'N/A'}</p>
+                            <p class="text-slate-600"><i class="fa-solid fa-id-card mr-1.5 text-slate-400"></i>Aadhar: ${item.aadhar || 'N/A'}</p>
+                            <div class="text-slate-500 bg-slate-50 p-2 rounded-lg border border-slate-100/80 max-h-16 overflow-y-auto mt-1 text-[11px]">
+                                <i class="fa-solid fa-map-marker-alt mr-1 text-slate-400"></i>${item.address || 'No Address Listed.'}
+                            </div>
+                        </div>
+                        
+                        <!-- Section 2: Render Profile Image Base64 String Object -->
+                        <div class="text-center space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Member Photo</span>
+                            <div class="h-48 w-full border border-slate-100 rounded-xl overflow-hidden bg-slate-50 shadow-inner group relative">
+                                <img src="${memberPhotoSrc}" class="w-full h-full object-cover transition duration-300 group-hover:scale-105" alt="Profile Asset">
+                                <button onclick="openFullImage('${key}', 'photo')" class="absolute inset-0 bg-black/40 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom Photo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Render Payment Screenshot Base64 String Object -->
+                        <div class="text-center space-y-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Payment Screenshot</span>
+                            <div class="h-48 w-full border border-slate-100 rounded-xl overflow-hidden bg-slate-50 shadow-inner group relative">
+                                <img src="${paymentSnapSrc}" class="w-full h-full object-cover transition duration-300 group-hover:scale-105" alt="Payment Screenshot Asset">
+                                <button onclick="openFullImage('${key}', 'screenshot')" class="absolute inset-0 bg-black/40 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom Screenshot
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Action Control Switch Node Triggers -->
+                        <div class="flex flex-col gap-3 md:pl-4 w-full">
+                            <button onclick="updateMemberStatus('${key}', 'APPROVED')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl text-xs transition tracking-wide shadow-xs flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-circle-check text-sm"></i> Approve Membership
+                            </button>
+                            <button onclick="updateMemberStatus('${key}', 'REJECTED')" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-xl text-xs transition tracking-wide shadow-xs flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-circle-xmark text-sm"></i> Reject Profile Record
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+
+            document.getElementById('pendingCount').innerText = pendingCounter;
+            
+            // Render explicit clean statement window if pending rows loop resolves down to zero counters
+            if (pendingCounter === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-12 border border-slate-200 rounded-2xl text-center text-emerald-600 font-bold max-w-md mx-auto shadow-sm">
+                        <i class="fa-solid fa-square-check text-4xl mb-2 text-emerald-500 block"></i>
+                        🎉 Great Job Dev Bhai! All pending queues are processed. Pipeline is clear!
+                    </div>`;
+            }
+        });
+
+        // Trigger updates transaction handler across explicit unique row id keys
+        async function updateMemberStatus(keyId, statusValue) {
+            if (!confirm(`Are you sure you want to flag this application profile as ${statusValue}?`)) return;
+            try {
+                await db.ref(`applications/${keyId}`).update({ status: statusValue });
+                alert(`Realtime record successfully flagged as ${statusValue}!`);
+            } catch (err) {
+                console.error("Firebase runtime execution fault: ", err);
+                alert("Database state transition sync failed.");
+            }
+        }
+
+        // Dedicated secure pipeline window generator helper to zoom and maximize raw Base64 strings in clean viewer threads
+        async function openFullImage(keyId, fieldType) {
+            try {
+                const snapshot = await db.ref(`applications/${keyId}/${fieldType}`).once('value');
+                const rawBase64 = snapshot.val();
+                if (rawBase64) {
+                    const newTab = window.open();
+                    newTab.document.body.innerHTML = `
+                        <title>BMSVS Asset Viewer</title>
+                        <body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center; min-height:100vh;">
+                            <img src="${rawBase64}" style="max-width:100%; max-height:100vh; object-fit:contain; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);" alt="Maximized View">
+                        </body>`;
+                } else {
+                    alert("Image string resource field missing or empty.");
+                }
+            } catch (e) { alert("Viewer retrieval fault."); }
+        }
+    </script>
+</body>
+</html>
