@@ -1,162 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membership Portal | Brajlal Memorial Institute</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .serif-font { font-family: 'Merriweather', serif; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membership Portal | Brajlal Memorial Institute</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --maroon:#7c0a2a;
+  --maroon-dark:#5c061d;
+  --maroon-light:#a01040;
+  --gold:#b8860b;
+  --gold-light:#d4a017;
+  --cream:#fdf8f0;
+  --bg:#faf7f4;
+  --white:#ffffff;
+  --text:#1a0a0f;
+  --text-mid:#4a3040;
+  --text-muted:#8a7080;
+  --border:#e8d8dc;
+  --border-light:#f0e4e8;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── ANIMATED BG BLOBS ── */
+.bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);animation:blobDrift 18s ease-in-out infinite}
+.blob1{width:500px;height:500px;background:radial-gradient(circle,rgba(124,10,42,0.08),transparent 70%);top:-150px;left:-100px;animation-delay:0s}
+.blob2{width:400px;height:400px;background:radial-gradient(circle,rgba(212,160,23,0.07),transparent 70%);bottom:-100px;right:-80px;animation-delay:-6s}
+.blob3{width:300px;height:300px;background:radial-gradient(circle,rgba(124,10,42,0.05),transparent 70%);top:45%;left:55%;animation-delay:-12s}
+@keyframes blobDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(25px,-35px) scale(1.04)}
+  66%{transform:translate(-18px,25px) scale(0.97)}
+}
+
+/* ── LAYOUT ── */
+.wrapper{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,248,240,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:10px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 1px 20px rgba(124,10,42,0.06);
+  animation:slideDown 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-img{width:44px;height:44px;border-radius:10px;object-fit:contain;border:1px solid rgba(124,10,42,0.15);padding:2px;background:#fff}
+.logo-text-main{display:block;font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--maroon-dark);letter-spacing:0.04em}
+.logo-text-sub{display:block;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;margin-top:1px}
+.back-btn{
+  display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;
+  color:var(--text-mid);text-decoration:none;padding:7px 16px;border-radius:20px;
+  border:1px solid var(--border);background:#fff;
+  transition:all 0.25s;letter-spacing:0.03em;box-shadow:0 1px 4px rgba(0,0,0,0.04);
+}
+.back-btn:hover{color:var(--maroon);border-color:rgba(124,10,42,0.3);background:rgba(124,10,42,0.04)}
+
+/* ── HERO ── */
+.hero{
+  text-align:center;padding:50px 24px 36px;
+  animation:fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.15s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(90deg,rgba(124,10,42,0.08),rgba(212,160,23,0.08));
+  border:1px solid rgba(124,10,42,0.15);border-radius:100px;
+  padding:6px 18px;font-size:9px;font-weight:800;letter-spacing:0.18em;
+  color:var(--maroon);text-transform:uppercase;margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Cinzel',serif;font-size:clamp(20px,4.5vw,38px);
+  font-weight:700;line-height:1.2;color:var(--maroon-dark);margin-bottom:8px;
+}
+.hero-sub{font-size:12px;color:var(--text-muted);letter-spacing:0.05em}
+.gold-divider{width:60px;height:2px;margin:14px auto;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+
+/* ── MAIN GRID ── */
+main{
+  flex:1;max-width:1100px;width:100%;margin:0 auto;
+  padding:0 20px 60px;
+  display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start;
+}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+
+/* ── CARDS ── */
+.card{
+  background:#fff;border:1px solid var(--border-light);border-radius:18px;
+  box-shadow:0 4px 24px rgba(124,10,42,0.06);overflow:hidden;
+  animation:cardIn 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.card-a{animation-delay:0.2s}.card-b{animation-delay:0.35s}.card-c{animation-delay:0.45s}.card-d{animation-delay:0.55s}
+
+.card-header{
+  padding:15px 22px;border-bottom:1px solid var(--border-light);
+  display:flex;align-items:center;gap:12px;
+  background:linear-gradient(90deg,rgba(124,10,42,0.03),transparent);
+}
+.ch-icon{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--maroon-dark),var(--maroon-light));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#fff;box-shadow:0 4px 10px rgba(124,10,42,0.3);
+}
+.ch-title{font-size:13px;font-weight:700;color:var(--maroon-dark)}
+.ch-sub{font-size:10px;color:var(--text-muted);margin-top:1px}
+.card-body{padding:22px}
+
+/* ── PLAN CARDS ── */
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:500px){.plans-grid{grid-template-columns:1fr}}
+
+.plan-card{
+  border-radius:14px;padding:18px 15px;cursor:pointer;
+  border:2px solid var(--border-light);background:#fdfbfc;
+  transition:all 0.3s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden;
+}
+.plan-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.plan-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(124,10,42,0.12)}
+.plan-card:hover::after{opacity:0.5}
+.plan-card.active-temp{border-color:#f59e0b;background:#fffbf0;box-shadow:0 0 0 3px rgba(245,158,11,0.1),0 8px 24px rgba(245,158,11,0.15)}
+.plan-card.active-temp::after{opacity:1;background:linear-gradient(90deg,transparent,#f59e0b,transparent)}
+.plan-card.active-perm{border-color:var(--maroon);background:#fff5f7;box-shadow:0 0 0 3px rgba(124,10,42,0.08),0 8px 24px rgba(124,10,42,0.15)}
+.plan-card.active-perm::after{opacity:1}
+
+.plan-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:8px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;margin-bottom:11px;
+}
+.badge-temp{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.badge-perm{background:linear-gradient(90deg,rgba(124,10,42,0.1),rgba(212,160,23,0.1));color:var(--maroon-dark);border:1px solid rgba(124,10,42,0.2)}
+
+.plan-price{font-size:26px;font-weight:800;color:var(--text);line-height:1}
+.plan-price span{font-size:11px;font-weight:400;color:var(--text-muted)}
+.plan-duration{font-size:10px;color:var(--text-muted);margin:3px 0 12px}
+
+/* FIXED: Checkmark vector visibility inside circle indicator icons */
+.plan-check{
+  position:absolute;top:14px;right:14px;width:22px;height:22px;
+  border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  transition:all 0.25s;color:transparent;background:#fff;
+}
+.plan-card.active-temp .plan-check{background:#f59e0b;border-color:#f59e0b;color:#ffffff !important;font-weight:bold;}
+.plan-card.active-perm .plan-check{background:var(--maroon);border-color:var(--maroon);color:#ffffff !important;font-weight:bold;}
+
+.plan-benefits{list-style:none;border-top:1px solid var(--border-light);padding-top:11px}
+.plan-benefits li{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:11px;color:var(--text-mid);padding:3px 0;line-height:1.45;
+}
+.bi-check-temp{color:#f59e0b;font-size:10px;margin-top:2px;flex-shrink:0}
+.bi-check-perm{color:var(--maroon);font-size:10px;margin-top:2px;flex-shrink:0}
+
+/* ── FORM ── */
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.form-grid-2{grid-template-columns:1fr}}
+.fg{margin-bottom:13px}
+.fl{
+  display:block;font-size:10px;font-weight:700;
+  color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;
+}
+.fl em{font-style:normal;font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted)}
+.fi{
+  width:100%;padding:10px 14px;
+  background:#fafafa;border:1.5px solid var(--border);
+  border-radius:11px;color:var(--text);font-size:12px;
+  font-family:'Inter',sans-serif;transition:all 0.2s;
+}
+.fi::placeholder{color:#c0a8b0}
+.fi:focus{outline:none;border-color:var(--maroon);background:#fff;box-shadow:0 0 0 3px rgba(124,10,42,0.08)}
+select.fi option{background:#fff;color:var(--text)}
+textarea.fi{resize:none}
+
+/* file zones */
+.file-zone{
+  border:2px dashed var(--border);border-radius:12px;padding:16px;
+  text-align:center;cursor:pointer;transition:all 0.25s;
+  background:#fafafa;position:relative;
+}
+.file-zone:hover{border-color:rgba(124,10,42,0.4);background:rgba(124,10,42,0.02)}
+.file-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-zone .fz-icon{font-size:22px;color:rgba(124,10,42,0.3);margin-bottom:5px}
+.file-zone .fz-title{font-size:11px;font-weight:600;color:var(--maroon);margin-bottom:2px}
+.file-zone .fz-sub{font-size:10px;color:var(--text-muted)}
+
+.upload-preview{
+  display:none;align-items:center;gap:10px;
+  margin-top:9px;padding:9px 13px;
+  background:rgba(124,10,42,0.04);border:1px solid rgba(124,10,42,0.15);
+  border-radius:10px;
+}
+.upload-preview.show{display:flex}
+.preview-thumb{width:42px;height:42px;border-radius:8px;object-fit:cover;border:2px solid var(--maroon);flex-shrink:0}
+.preview-thumb-sq{width:42px;height:42px;border-radius:8px;object-fit:cover;border:2px solid var(--gold);flex-shrink:0}
+.preview-name{font-size:11px;font-weight:600;color:var(--maroon)}
+.preview-size{font-size:9px;color:var(--text-muted)}
+
+/* info note */
+.note{
+  display:flex;align-items:flex-start;gap:8px;
+  background:#fffbf0;border:1px solid #fde68a;border-radius:9px;
+  padding:9px 12px;font-size:10px;color:#92400e;margin-top:6px;line-height:1.5;
+}
+.note i{flex-shrink:0;margin-top:1px}
+
+/* ── SUBMIT BUTTON (FIXED: High Contrast Forced White Text Style) ── */
+.submit-btn{
+  width:100%;padding:14px;margin-top:18px;
+  background:linear-gradient(135deg,var(--maroon-dark) 0%,var(--maroon) 50%,var(--maroon-light) 100%);
+  border:none;border-radius:13px;color:#ffffff !important;
+  font-size:13px;font-weight:700;font-family:'Inter',sans-serif;
+  letter-spacing:0.04em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.3s;position:relative;overflow:hidden;
+  box-shadow:0 6px 24px rgba(124,10,42,0.35);
+}
+.submit-btn span, .submit-btn i { color: #ffffff !important; }
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(124,10,42,0.45)}
+.submit-btn:active{transform:scale(0.99)}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:20px}
+
+/* QR section */
+.qr-header-strip{
+  background:linear-gradient(135deg,var(--maroon-dark),var(--maroon));
+  padding:15px 20px;border-bottom:1px solid rgba(212,160,23,0.2);
+}
+.qr-body{padding:18px}
+
+.qr-frame{
+  background:#f8f4f0;border:2px solid var(--border);border-radius:14px;
+  padding:14px;text-align:center;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.qr-corner-tl,.qr-corner-tr,.qr-corner-bl,.qr-corner-br{
+  position:absolute;width:14px;height:14px;border-color:var(--gold);border-style:solid;
+}
+.qr-corner-tl{top:6px;left:6px;border-width:2px 0 0 2px}
+.qr-corner-tr{top:6px;right:6px;border-width:2px 2px 0 0}
+.qr-corner-bl{bottom:6px;left:6px;border-width:0 0 2px 2px}
+.qr-corner-br{bottom:6px;right:6px;border-width:0 2px 2px 0}
+
+.qr-img-el{
+  width:170px;height:170px;object-fit:contain;
+  border-radius:10px;border:3px solid #fff;
+  box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+.upi-label{font-size:10px;color:var(--text-muted);margin-top:10px}
+.upi-id-val{font-size:11px;font-weight:700;color:var(--maroon-dark);display:block;margin-bottom:2px}
+
+.price-banner{
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(90deg,rgba(124,10,42,0.06),rgba(212,160,23,0.06));
+  border:1.5px solid rgba(124,10,42,0.12);border-radius:12px;
+  padding:12px 16px;margin-bottom:12px;
+}
+.pb-label{font-size:10px;color:var(--text-muted)}
+.pb-amount{font-size:24px;font-weight:800;color:var(--maroon-dark)}
+.pb-type{font-size:9px;color:var(--gold);font-weight:600;margin-top:1px}
+
+.steps{background:#fafafa;border:1px solid var(--border-light);border-radius:12px;overflow:hidden}
+.step-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 14px;border-bottom:1px solid var(--border-light);
+  font-size:10px;color:var(--text-mid);
+}
+.step-row:last-child{border-bottom:none}
+.step-num{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  background:var(--maroon-dark);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:#fff;border-radius:14px;padding:13px 18px;
+  display:flex;align-items:flex-start;gap:12px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.15);
+  border:1px solid var(--border-light);
+  transform:translateY(100px);opacity:0;
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+  max-width:300px;
+}
+.toast.show{transform:none;opacity:1}
+.toast-icon{font-size:20px;margin-top:1px}
+.toast-title{font-size:12px;font-weight:700;color:var(--text)}
+.toast-msg{font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.4}
+
+/* footer */
+footer{
+  border-top:1px solid var(--border-light);text-align:center;
+  padding:16px;font-size:10px;color:var(--text-muted);letter-spacing:0.06em;
+  position:relative;z-index:1;background:#fff;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fa-spin{animation:spin 0.8s linear infinite}
+</style>
 </head>
-<body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased">
+<body>
 
-    <header class="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50 py-3">
-        <div class="container mx-auto px-4 lg:px-8 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-12 h-12 object-contain">
-                <div class="leading-tight">
-                    <span class="block text-sm font-bold text-[#5c061d] serif-font">बृजलाल मेमोरियल</span>
-                    <span class="block text-[10px] text-slate-500 font-medium">सामाजिक विकास संस्थान</span>
-                </div>
-            </a>
-            <a href="index.html" class="text-xs font-bold text-slate-600 hover:text-[#5c061d] transition"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Home</a>
+<div class="bg-blobs">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<div class="wrapper">
+
+<header>
+  <a href="index.html" class="logo-wrap">
+    <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="Logo" class="logo-img">
+    <div>
+      <span class="logo-text-main">Brajlal Memorial</span>
+      <span class="logo-text-sub">SOCIAL DEVELOPMENT INSTITUTE</span>
+    </div>
+  </a>
+  <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow"><i class="fa-solid fa-star"></i> Membership Portal <i class="fa-solid fa-star"></i></div>
+  <h1>सदस्यता के लिए आवेदन करें</h1>
+  <div class="gold-divider"></div>
+  <p class="hero-sub">Join &bull; Learn &bull; Lead &bull; Serve &nbsp;&mdash;&nbsp; Brajlal Memorial Social Development Institute</p>
+</div>
+
+<main>
+  <div>
+
+    <div class="card card-a" style="margin-bottom:20px">
+      <div class="card-header">
+        <div class="ch-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div>
+          <div class="ch-title">सदस्यता प्रकार चुनें — Select Plan</div>
+          <div class="ch-sub">Choose your membership type to proceed</div>
         </div>
-    </header>
+      </div>
+      <div class="card-body">
+        <div class="plans-grid">
+          <div class="plan-card" id="tempCard" onclick="selectPlan('temporary')">
+            <div class="plan-check" id="tempCheck"><i class="fa-solid fa-check"></i></div>
+            <div class="plan-badge badge-temp"><i class="fa-regular fa-clock"></i> Temporary</div>
+            <div class="plan-price">&#8377;99 <span>/ year</span></div>
+            <div class="plan-duration">1 Year Valid Membership</div>
+            <ul class="plan-benefits">
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>Digital Membership Certificate</li>
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>NGO Events &amp; Programs Access</li>
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>WhatsApp Updates &amp; Alerts</li>
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>Training &amp; Workshops Access</li>
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>Basic Guidance &amp; Core Support</li>
+              <li><i class="fa-solid fa-circle-check bi-check-temp"></i>1 Year Valid Membership ID Card</li>
+            </ul>
+          </div>
+          <div class="plan-card active-perm" id="permCard" onclick="selectPlan('permanent')">
+            <div class="plan-check" id="permCheck"><i class="fa-solid fa-check"></i></div>
+            <div class="plan-badge badge-perm"><i class="fa-solid fa-crown"></i> Permanent &#11088;</div>
+            <div class="plan-price" style="color:var(--maroon-dark)">&#8377;999 <span>/ lifetime</span></div>
+            <div class="plan-duration">Lifetime Membership &mdash; One Time Fee</div>
+            <ul class="plan-benefits">
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Permanent ID Card</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Priority Updates &amp; Information</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Training &amp; Workshops Access</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Special Benefits — All India Tours</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Leadership Opportunities</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Certificates &amp; Recognition</li>
+              <li><i class="fa-solid fa-circle-check bi-check-perm"></i>&#10024; Nationwide Network &amp; Identity</li>
+            </ul>
+          </div>
+        </div>
+        <input type="hidden" id="selectedPlan" value="permanent">
+      </div>
+    </div>
 
-    <main class="container mx-auto px-4 lg:px-8 max-w-5xl py-12 flex-grow grid md:grid-cols-3 gap-8">
-        <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-md h-fit">
-            <div class="border-b pb-4 mb-6">
-                <h1 class="text-xl font-bold text-[#5c061d] serif-font">सदस्यता के लिए आवेदन करें</h1>
-                <p class="text-xs text-slate-500 mt-1">कृपया डिजिटल आईडी कार्ड जनरेशन के लिए अपनी सही जानकारी भरें।</p>
+    <div class="card card-b">
+      <div class="card-header">
+        <div class="ch-icon"><i class="fa-solid fa-user-pen"></i></div>
+        <div>
+          <div class="ch-title">आवेदन फॉर्म — Application Form</div>
+          <div class="ch-sub">Fill your accurate details for digital ID generation</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="membershipForm" onsubmit="handleSubmit(event)">
+
+          <div class="form-grid-2">
+            <div class="fg">
+              <label class="fl">पूरा नाम <em>(Full Name) *</em></label>
+              <input type="text" id="regName" required placeholder="e.g. Ramesh Kumar Sharma" class="fi">
             </div>
+            <div class="fg">
+              <label class="fl">मोबाइल नंबर <em>(Mobile) *</em></label>
+              <input type="tel" id="regPhone" required placeholder="10-digit number" maxlength="10" class="fi">
+            </div>
+          </div>
 
-            <form id="membershipForm" onsubmit="handleApplicationSubmit(event)" class="space-y-4">
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <input type="text" id="regName" required placeholder="Full Name" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                    <input type="tel" id="regPhone" required placeholder="Mobile Number" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                </div>
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <input type="email" id="regEmail" required placeholder="Email Address" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                    <input type="text" id="regIdProof" required placeholder="Aadhar Card Number" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]">
-                </div>
-                <textarea id="regAddress" required rows="2" placeholder="Permanent Address" class="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:border-[#5c061d]"></textarea>
-                
-                <div class="grid sm:grid-cols-2 gap-4 border border-dashed rounded-xl bg-slate-50/50 p-4">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1"><i class="fa-regular fa-image mr-1 text-[#5c061d]"></i> अपनी प्रोफाइल फोटो चुनें</label>
-                        <input type="file" id="regPhotoFile" accept="image/*" required class="text-xs text-slate-500">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1"><i class="fa-solid fa-receipt mr-1 text-[#5c061d]"></i> भुगतान स्क्रीनशॉट (Screenshot)</label>
-                        <input type="file" id="regScreenshotFile" accept="image/*" required class="text-xs text-slate-500">
-                    </div>
-                </div>
-                <button type="submit" id="btn-submit" class="w-full bg-[#5c061d] hover:bg-[#4a0416] text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider shadow-md">आवेदन जमा करें</button>
-            </form>
+          <div class="form-grid-2">
+            <div class="fg">
+              <label class="fl">ईमेल <em>(Email) *</em></label>
+              <input type="email" id="regEmail" required placeholder="name@email.com" class="fi">
+            </div>
+            <div class="fg">
+              <label class="fl">आधार नंबर <em>(Aadhar) *</em></label>
+              <input type="text" id="regIdProof" required placeholder="0000-0000-0000" maxlength="14" class="fi">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="fg">
+              <label class="fl">लिंग <em>(Gender) *</em></label>
+              <select id="regGender" required class="fi">
+                <option value="">-- Select --</option>
+                <option value="Male">Male / पुरुष</option>
+                <option value="Female">Female / महिला</option>
+                <option value="Other">Other / अन्य</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">जिला / शहर <em>(City) *</em></label>
+              <input type="text" id="regCity" required placeholder="e.g. Raebareli" class="fi">
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">स्थायी पता <em>(Address) *</em></label>
+            <textarea id="regAddress" required rows="2" placeholder="Village / Mohalla, Block, District, State..." class="fi"></textarea>
+          </div>
+
+          <div class="fg">
+            <label class="fl">UPI Transaction ID <em>(Payment Proof) *</em></label>
+            <input type="text" id="regTransactionId" required placeholder="Transaction ID after QR payment" class="fi">
+            <div class="note"><i class="fa-solid fa-circle-info"></i>Right side QR se payment karein, phir Transaction ID copy karke yahaan paste karein.</div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">प्रोफाइल फोटो <em>(Profile Photo) *</em></label>
+            <div class="file-zone" id="photoZone">
+              <input type="file" id="regPhotoFile" accept="image/*" required onchange="handlePhoto(this)">
+              <div class="fz-icon"><i class="fa-solid fa-user-circle"></i></div>
+              <div class="fz-title">Click to upload your photo</div>
+              <div class="fz-sub">JPG, PNG &bull; Max 5MB</div>
+            </div>
+            <div class="upload-preview" id="photoPreview">
+              <img id="photoThumb" class="preview-thumb" src="" alt="">
+              <div>
+                <div class="preview-name" id="photoName"></div>
+                <div class="preview-size" id="photoSize"></div>
+              </div>
+              <i class="fa-solid fa-circle-check" style="color:#22c55e;margin-left:auto;font-size:16px"></i>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">Payment Screenshot <em>(Screenshot Proof) *</em></label>
+            <div class="file-zone" id="ssZone">
+              <input type="file" id="regScreenshot" accept="image/*" required onchange="handleScreenshot(this)">
+              <div class="fz-icon"><i class="fa-solid fa-image"></i></div>
+              <div class="fz-title">Upload payment screenshot</div>
+              <div class="fz-sub">UPI payment ki screenshot &bull; JPG, PNG &bull; Max 5MB</div>
+            </div>
+            <div class="upload-preview" id="ssPreview">
+              <img id="ssThumb" class="preview-thumb-sq" src="" alt="">
+              <div>
+                <div class="preview-name" id="ssName"></div>
+                <div class="preview-size" id="ssSize"></div>
+              </div>
+              <i class="fa-solid fa-circle-check" style="color:#22c55e;margin-left:auto;font-size:16px"></i>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>आवेदन जमा करें &mdash; Submit Application</span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+
+    <div class="card card-c" style="overflow:hidden">
+      <div class="qr-header-strip">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="ch-icon" style="background:rgba(255,255,255,0.15)"><i class="fa-solid fa-qrcode"></i></div>
+          <div>
+            <div class="ch-title" style="color:#fff">Payment QR Code</div>
+            <div class="ch-sub" style="color:rgba(255,220,180,0.7)">Scan to pay membership fee</div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-body">
+        <div class="qr-frame">
+          <div class="qr-corner-tl"></div>
+          <div class="qr-corner-tr"></div>
+          <div class="qr-corner-bl"></div>
+          <div class="qr-corner-br"></div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=rashmividhi20@okhdfcbank&pn=Rashmi&cu=INR" alt="Official UPI QR Code" class="qr-img-el">
+          <div class="upi-label">
+            <span class="upi-id-val">rashmividhi20@okhdfcbank</span>
+            Scan with any UPI app
+          </div>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md text-center space-y-4 h-fit">
-            <div class="w-10 h-10 bg-amber-50 text-[#5c061d] rounded-full flex items-center justify-center text-lg mx-auto shadow-sm">
-                <i class="fa-solid fa-qrcode"></i>
-            </div>
-            <div class="leading-tight">
-                <h3 class="font-bold text-slate-900 text-sm serif-font">सदस्यता शुल्क भुगतान (UPI Scan)</h3>
-                <p class="text-[11px] text-slate-400 mt-1">QR Code को स्कैन करें और भुगतान का स्क्रीनशॉट फॉर्म में अपलोड करें।</p>
-            </div>
-            
-            <div class="bg-slate-50 p-2 border border-slate-100 rounded-xl max-w-[240px] mx-auto shadow-inner overflow-hidden">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=rashmividhi20@okhdfcbank&pn=Rashmi&cu=INR" alt="BMSVS Official Payment QR" class="w-full h-auto rounded-lg mx-auto">
-            </div>
-            <div class="text-[11px] font-mono text-slate-600 bg-slate-50 p-2 rounded-xl border font-bold">
-                UPI ID: rashmividhi20@okhdfcbank
-            </div>
+        <div class="price-banner">
+          <div>
+            <div class="pb-label">Amount to Pay</div>
+            <div class="pb-type" id="priceType">Permanent Membership</div>
+          </div>
+          <div class="pb-amount" id="priceAmount">&#8377;999</div>
         </div>
-    </main>
 
-    <footer class="bg-[#0f172a] text-slate-500 py-4 text-center text-xs mt-auto">© 2026 Brajlal Memorial Institute.</footer>
+        <div class="steps">
+          <div class="step-row"><div class="step-num">1</div>Left side me plan select karein</div>
+          <div class="step-row"><div class="step-num">2</div>QR scan karke payment karein</div>
+          <div class="step-row"><div class="step-num">3</div>Transaction ID note karein</div>
+          <div class="step-row"><div class="step-num">4</div>Screenshot le lein</div>
+          <div class="step-row"><div class="step-num">5</div>Form fill karke submit karein &#10003;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyA6MFWKZVDSu1i4QXM5ZNcnd2myuLs1Pyo",
-            authDomain: "bmsvs-hosting.firebaseapp.com",
-            projectId: "bmsvs-hosting",
-            storageBucket: "bmsvs-hosting.firebasestorage.app",
-            messagingSenderId: "527539594907",
-            appId: "1:527539594907:web:2b67ba480ae460d7a6483e",
-            measurementId: "G-D1LEG857WT",
-            databaseURL: "https://bmsvs-hosting-default-rtdb.firebaseio.com"
-        };
+<footer>&copy; 2026 Brajlal Memorial Social Development Institute &nbsp;|&nbsp; All Rights Reserved</footer>
+</div>
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon"></div>
+  <div>
+    <div class="toast-title" id="toastTitle"></div>
+    <div class="toast-msg" id="toastMsg"></div>
+  </div>
+</div>
 
-        let photoBase64 = "";
-        let screenshotBase64 = "";
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyA6MFWKZVDSu1i4QXM5ZNcnd2myuLs1Pyo",
+    authDomain: "bmsvs-hosting.firebaseapp.com",
+    projectId: "bmsvs-hosting",
+    storageBucket: "bmsvs-hosting.firebasestorage.app",
+    messagingSenderId: "527539594907",
+    appId: "1:527539594907:web:2b67ba480ae460d7a6483e",
+    measurementId: "G-D1LEG857WT",
+    databaseURL: "https://bmsvs-hosting-default-rtdb.firebaseio.com"
+};
 
-        // Reader functions converting formats into pure binary raw database texts
-        document.getElementById('regPhotoFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) { photoBase64 = ev.target.result; };
-                reader.readAsDataURL(file);
-            }
-        });
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-        document.getElementById('regScreenshotFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) { screenshotBase64 = ev.target.result; };
-                reader.readAsDataURL(file);
-            }
-        });
+let currentPlan = 'permanent';
+let base64Photo = '';
+let photoFileName = '';
+let base64Screenshot = '';
+let ssFileName = '';
 
-        async function handleApplicationSubmit(e) {
-            e.preventDefault();
-            if(!photoBase64 || !screenshotBase64) return alert("दोनों फाइलें लोड होने दें!");
-            
-            const submitBtn = document.getElementById('btn-submit');
-            submitBtn.innerText = "Saving Data securely...";
-            submitBtn.disabled = true;
+function selectPlan(plan) {
+  currentPlan = plan;
+  document.getElementById('selectedPlan').value = plan;
+  if (plan === 'temporary') {
+    document.getElementById('tempCard').className = 'plan-card active-temp';
+    document.getElementById('permCard').className = 'plan-card';
+    document.getElementById('priceAmount').textContent = '\u20B999';
+    document.getElementById('priceType').textContent = 'Temporary Membership (1 Year)';
+  } else {
+    document.getElementById('permCard').className = 'plan-card active-perm';
+    document.getElementById('tempCard').className = 'plan-card';
+    document.getElementById('priceAmount').textContent = '\u20B9999';
+    document.getElementById('priceType').textContent = 'Permanent Membership (Lifetime)';
+  }
+}
 
-            const memberRef = db.ref('applications').push();
-            const memberId = memberRef.key;
+function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('error', 'File too large', 'Max 5MB allowed'); return; }
+  photoFileName = file.name;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    base64Photo = e.target.result;
+    document.getElementById('photoThumb').src = base64Photo;
+    document.getElementById('photoName').textContent = file.name;
+    document.getElementById('photoSize').textContent = (file.size/1024).toFixed(1) + ' KB';
+    document.getElementById('photoPreview').classList.add('show');
+    document.getElementById('photoZone').style.borderColor = '#22c55e';
+  };
+  reader.readAsDataURL(file);
+}
 
-            try {
-                await memberRef.set({
-                    memberId: memberId,
-                    name: document.getElementById('regName').value.trim(),
-                    phone: document.getElementById('regPhone').value.trim(),
-                    email: document.getElementById('regEmail').value.trim(),
-                    aadhar: document.getElementById('regIdProof').value.trim(),
-                    address: document.getElementById('regAddress').value.trim(),
-                    photo: photoBase64,          // Saved safely inside database tree
-                    screenshot: screenshotBase64,  // Saved safely inside database tree
-                    status: "PENDING",
-                    timestamp: new Date().toISOString()
-                });
+function handleScreenshot(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('error', 'File too large', 'Max 5MB allowed'); return; }
+  ssFileName = file.name;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    base64Screenshot = e.target.result;
+    document.getElementById('ssThumb').src = base64Screenshot;
+    document.getElementById('ssName').textContent = file.name;
+    document.getElementById('ssSize').textContent = (file.size/1024).toFixed(1) + ' KB';
+    document.getElementById('ssPreview').classList.add('show');
+    document.getElementById('ssZone').style.borderColor = '#22c55e';
+  };
+  reader.readAsDataURL(file);
+}
 
-                alert(`आवेदन सबमिट हो गया!\nआपका Token ID है: ${memberId}`);
-                document.getElementById('membershipForm').reset();
-                photoBase64 = ""; screenshotBase64 = "";
-            } catch (err) {
-                alert("Error sending dataset.");
-            } finally {
-                submitBtn.innerText = "आवेदन जमा करें";
-                submitBtn.disabled = false;
-            }
-        }
-    </script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  if (!base64Photo) { showToast('error', 'Photo missing', 'Please upload your profile photo'); return; }
+  if (!base64Screenshot) { showToast('error', 'Screenshot missing', 'Please upload payment proof screenshot'); return; }
+  
+  const phone = document.getElementById('regPhone').value.trim();
+  if (phone.length !== 10 || isNaN(Number(phone))) { showToast('error', 'Invalid number', 'Enter 10-digit mobile number'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span style="color:#fff;">Submitting...</span>';
+
+  const memberRef = db.ref('applications').push();
+  const memberId = memberRef.key;
+
+  const payload = {
+    memberId: memberId,
+    name: document.getElementById('regName').value.trim(),
+    phone: phone,
+    email: document.getElementById('regEmail').value.trim(),
+    aadhar: document.getElementById('regIdProof').value.trim(),
+    gender: document.getElementById('regGender').value,
+    city: document.getElementById('regCity').value.trim(),
+    address: document.getElementById('regAddress').value.trim(),
+    planType: currentPlan === 'permanent' ? 'Permanent (Lifetime)' : 'Temporary (1 Year)',
+    transactionId: document.getElementById('regTransactionId').value.trim(),
+    photo: base64Photo,
+    screenshot: base64Screenshot,
+    status: "PENDING",
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await memberRef.set(payload);
+    showToast('success', 'Application Submitted! \u2713', 'Admin approval ke baad aapka ID card ready hoga.');
+    alert(`आवेदन सबमिट हो गया है!\nआपकी Token ID (Membership ID) है: ${memberId}\nIse card download ke liye save rakhein.`);
+    document.getElementById('membershipForm').reset();
+    ['photoPreview','ssPreview'].forEach(id => document.getElementById(id).classList.remove('show'));
+    ['photoZone','ssZone'].forEach(id => document.getElementById(id).style.borderColor = '');
+    base64Photo = ''; photoFileName = ''; base64Screenshot = ''; ssFileName = '';
+    selectPlan('permanent');
+  } catch(err) {
+    showToast('error', 'Submit Failed', 'Please try again.');
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span style="color:#fff;">आवेदन जमा करें &mdash; Submit Application</span>';
+  }
+}
+
+function showToast(type, title, msg) {
+  const icons = {success:'✅', error:'❌', info:'ℹ️'};
+  document.getElementById('toastIcon').textContent = icons[type] || '📢';
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+window.onload = function() { selectPlan('permanent'); };
+</script>
 </body>
 </html>
