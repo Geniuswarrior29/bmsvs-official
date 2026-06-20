@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Brajlal Memorial Institute</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif-font { font-family: 'Merriweather', serif; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased scroll-smooth">
+
+    <!-- Top Info Bar + LANGUAGE SWITCHER -->
+    <div class="bg-[#5c061d] text-amber-100/90 text-xs py-2 px-4 border-b border-maroon-800 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div id="top-reg">Registered NGO | Govt. Approved Act</div>
+            <button onclick="switchLanguage()" id="langBtn" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1">
+                <i class="fa-solid fa-language text-sm"></i> <span>English</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-[37px] z-40 bg-white/95 border-b border-slate-100 shadow-sm backdrop-blur-md py-3">
+        <div class="container mx-auto px-4 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-12 h-12 object-contain">
+                <div class="leading-tight">
+                    <span class="block text-sm font-bold text-[#5c061d] serif-font" id="nav-title-main">बृजलाल मेमोरियल</span>
+                    <span class="block text-[10px] text-slate-500 font-medium" id="nav-title-sub">सामाजिक विकास संस्थान</span>
+                </div>
+            </a>
+            <a href="index.html" class="text-xs font-bold text-slate-600 hover:text-[#5c061d] transition"><i class="fa-solid fa-arrow-left mr-1"></i> <span id="back-home-text">मुख्य पृष्ठ पर जाएं</span></a>
+        </div>
+    </header>
+
+    <!-- HERO INTRODUCTION BANNER -->
+    <section class="bg-gradient-to-br from-[#fdf5f7] via-white to-[#fffbf4] py-16 border-b border-slate-100 text-center relative overflow-hidden">
+        <div class="container mx-auto px-4 max-w-3xl space-y-4">
+            <span class="bg-rose-50 text-[#5c061d] text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-widest border border-rose-100" id="hero-tag">हमारा परिचय / Our Legacy</span>
+            <h1 class="text-3xl md:text-5xl font-bold text-slate-900 serif-font tracking-tight" id="hero-title">प्रेरणा, संघर्ष और सेवा की अमर यात्रा</h1>
+            <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+            <p class="text-sm md:text-base text-slate-600 leading-relaxed italic" id="hero-quote">"व्यक्ति चला जाता है, लेकिन उसके विचार, संस्कार और सपने पीढ़ियों तक जीवित रहते हैं।"</p>
+        </div>
+    </section>
+
+    <!-- CORE ACTION PILLARS / MANTRA -->
+    <section class="py-8 bg-white border-b border-slate-50 shadow-inner">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><div class="text-xl text-[#5c061d] mb-1"><i class="fa-solid fa-hand-holding-heart"></i></div><h4 class="font-bold text-xs uppercase tracking-wider" id="m1">सेवा (Service)</h4></div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><div class="text-xl text-amber-600 mb-1"><i class="fa-solid fa-peace"></i></div><h4 class="font-bold text-xs uppercase tracking-wider" id="m2">समर्पण (Dedication)</h4></div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><div class="text-xl text-emerald-600 mb-1"><i class="fa-solid fa-book-open"></i></div><h4 class="font-bold text-xs uppercase tracking-wider" id="m3">संस्कार (Values)</h4></div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><div class="text-xl text-blue-600 mb-1"><i class="fa-solid fa-users"></i></div><h4 class="font-bold text-xs uppercase tracking-wider" id="m4">समाज उत्थान (Upliftment)</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DYNAMIC CORE BIOGRAPHY AND VISION SECTION -->
+    <main class="container mx-auto px-4 lg:px-8 max-w-5xl py-14 space-y-16 flex-grow">
+        
+        <!-- BIOGRAPHY OF LATE SHRI BRAJLAL PASI JI -->
+        <div class="grid md:grid-cols-5 gap-8 items-center">
+            <div class="md:col-span-2 text-center">
+                <div class="w-56 h-72 mx-auto overflow-hidden rounded-3xl border-4 border-[#5c061d] shadow-2xl bg-white transform hover:scale-103 transition duration-300">
+                    <img src="https://i.ibb.co/8LXHVpm0/Whats-App-Image-2026-06-12-at-09-00-10.jpg" alt="Late Brajlal Pasi" class="w-full h-full object-cover object-top">
+                </div>
+                <p class="text-xs font-bold text-[#5c061d] tracking-wide mt-3 uppercase" id="bio-pic-caption">स्वर्गीय ब्रजलाल पासी जी (पूर्व कमिश्नर, भारत सरकार)</p>
+            </div>
+            <div class="md:col-span-3 space-y-4 text-justify">
+                <h2 class="text-2xl md:text-3xl font-bold text-[#5c061d] serif-font" id="bio-title">व्यक्तित्व परिचय: संघर्ष से सेवा तक</h2>
+                <div class="w-12 h-1 bg-amber-500 rounded-full"></div>
+                <div class="text-sm text-slate-600 space-y-3 leading-relaxed" id="bio-paragraphs">
+                    <!-- Dynamic Loading Injector Context -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MILESTONES BLOCK -->
+        <div class="bg-[#fffdf9] border border-amber-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+            <h3 class="text-xl font-bold text-slate-900 serif-font text-center flex items-center justify-center gap-2">
+                <i class="fa-solid fa-list-check text-amber-500"></i> <span id="milestone-title">जीवन यात्रा एवं प्रमुख संकल्प</span>
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 text-xs font-medium" id="milestones-list">
+                <!-- Dynamic Content Points Loop -->
+            </div>
+        </div>
+
+        <!-- NEW CLEAN LEADERSHIP BOARD WITHOUT QUOTES -->
+        <div class="space-y-8">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <h3 class="text-2xl font-bold text-slate-900 serif-font" id="succession-title">विरासत की नई कमान</h3>
+                <p class="text-xs text-slate-500" id="succession-sub">अधूरे सपनों को पूरा करने और समाज सेवा की ज्योति को निरंतर प्रज्वलित रखने का संकल्प।</p>
+                <div class="w-12 h-0.5 bg-[#5c061d] mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <!-- Leader Card: Siddharth Pasi -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center space-y-3 shadow-sm hover:shadow-md transition">
+                    <div class="w-28 h-28 rounded-2xl overflow-hidden mx-auto border-2 border-[#5c061d] bg-white shadow-md">
+                        <img src="https://i.ibb.co/dJ5d7jjK/Whats-App-Image-2026-06-12-at-09-01-31.jpg" alt="Siddharth Pasi" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-base serif-font">Siddharth Pasi</h4>
+                        <p class="text-xs font-bold text-[#5c061d] uppercase mt-0.5" id="post-siddharth">संस्थापक (Founder)</p>
+                    </div>
+                </div>
+
+                <!-- Leader Card: Rashmi Pasi -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center space-y-3 shadow-sm hover:shadow-md transition">
+                    <div class="w-28 h-28 rounded-2xl overflow-hidden mx-auto border-2 border-[#5c061d] bg-white shadow-md">
+                        <img src="https://i.ibb.co/gbM6MXpB/Whats-App-Image-2026-06-12-at-08-58-30-1.jpg" alt="Rashmi Pasi" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-base serif-font">Rashmi Pasi</h4>
+                        <p class="text-xs font-bold text-[#5c061d] uppercase mt-0.5" id="post-rashmi">अध्यक्ष (President)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0f172a] text-slate-400 py-6 text-center text-xs mt-auto">
+        <p class="text-white font-bold serif-font">बृजलाल मेमोरियल सामाजिक विकास संस्थान</p>
+        <p>© 2026 Brajlal Memorial Institute. All Rights Reserved.</p>
+    </footer>
+
+    <!-- ENGINE CODE MODULE CORE LOGIC PIPELINES -->
+    <script>
+        let currentLang = 'HI';
+
+        const layoutDictionary = {
+            EN: {
+                topReg: "Registered NGO | Govt. Approved Act",
+                langBtn: "हिंदी",
+                backHome: "Back to Home",
+                heroTag: "Our Legacy & Profile",
+                heroTitle: "An Immortal Journey of Inspiration, Struggle and Service",
+                heroQuote: "\"A person departs, but their thoughts, values and dreams remain alive across generations.\"",
+                m1: "Service", m2: "Dedication", m3: "Values", m4: "Upliftment",
+                bioPicCaption: "Late Shri Brajlal Pasi Ji (Former Commissioner, Government of India)",
+                bioTitle: "Biography: Journey from Struggle to Service",
+                milestoneTitle: "Life Journey & Key Commitments",
+                successionTitle: "The New Leadership of Legacy",
+                successionSub: "Determined to fulfill incomplete dreams and keep the light of social service burning bright.",
+                postSiddharth: "Founder",
+                postRashmi: "President",
+                
+                paragraphs: `
+                    <p>Born into a humble farming family, Late Brajlal Pasi Ji received his primary education from a village government school. Despite highly limited resources, he achieved a high post as an IRS Officer in the Government of India (Former Commissioner of Income Tax) by virtue of his absolute hard work, dedication, and firm determination.</p>
+                    <p>He was not only a highly successful administrative officer, but also an exceptional social worker, mentor, and deep source of inspiration for everyone around him. After his retirement in the year 2008, he chose to completely dedicate his life to the development of his birthplace, village, and youth empowerment.</p>
+                    <p>With his sudden demise on April 20, 2021, society lost a true karma-yogi personality. However, his values, thoughts, and incomplete dreams continue to inspire and guide our mission today.</p>
+                `,
+                milestones: `
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i><span>Born in an ordinary farmer's household and educated at village local school.</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i><span>Served with absolute honor as a top IRS Officer (Income Tax Commissioner) in Central Govt.</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i><span>Took retirement oath in 2008: "Now I dedicate my life to my village and society's welfare."</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-check text-amber-500 mt-0.5"></i><span>Created strategic plans for smart village growth, women empowerment, and youth values.</span></div>
+                `
+            },
+            HI: {
+                topReg: "पंजीकृत एनजीओ | भारत सरकार द्वारा स्वीकृत अधिनियम",
+                langBtn: "English",
+                backHome: "मुख्य पृष्ठ पर जाएं",
+                heroTag: "हमारा परिचय / Our Legacy",
+                heroTitle: "प्रेरणा, संघर्ष और सेवा की अमर यात्रा",
+                heroQuote: "💐 \"व्यक्ति चला जाता है, लेकिन उसके विचार, संस्कार और सपने पीठियों तक जीवित रहते हैं।\"",
+                m1: "सेवा", m2: "समर्पण", m3: "संस्कार", m4: "समाज उत्थान",
+                bioPicCaption: "स्वर्गीय ब्रजलाल पासी जी (पूर्व कमिश्नर, भारत सरकार)",
+                bioTitle: "व्यक्तित्व परिचय: संघर्ष से सेवा तक",
+                milestoneTitle: "जीवन यात्रा एवं प्रमुख संकल्प",
+                successionTitle: "विरासत की नई कमान",
+                successionSub: "अधूरे सपनों को पूरा करने और समाज सेवा की ज्योति को निरंतर प्रज्वलित रखने का संकल्प।",
+                postSiddharth: "संस्थापक (Founder)",
+                postRashmi: "अध्यक्ष (President)",
+                
+                paragraphs: `
+                    <p>एक साधारण किसान परिवार में जन्मे स्वर्गीय ब्रजलाल पासी जी ने गांव के सरकारी विद्यालय से शिक्षा प्राप्त की। सीमित संसाधनों के बावजूद उन्होंने अपने परिश्रम, लगन और दृढ़ संकल्प के बल पर भारत सरकार में IRS अधिकारी (पूर्व कमिश्नर इनकम टैक्स) के रूप में उच्च पद प्राप्त कर गौरवान्वित किया।</p>
+                    <p>वह केवल एक सफल अधिकारी ही नहीं, बल्कि समाजसेवी, सच्चे मार्गदर्शक और अनमोल प्रेरणास्रोत भी थे। वर्ष 2008 में सेवानिवृत्ति के बाद उन्होंने एक नया संकल्प लिया — "अब अपना जीवन जन्मभूमि, गांव और समाज की सेवा के लिए समर्पित करूंगा।"</p>
+                    <p>लेकिन 20 अप्रैल 2021 को उनके आकस्मिक स्वर्गवास से समाज ने एक कर्मयोगी व्यक्तित्व को खो दिया और उनके सपने अधूरे रह गए। आज उन सपनों को साकार करने की जिम्मेदारी संस्थान पूरी निष्ठा से आगे बढ़ा रहा है।</p>
+                `,
+                milestones: `
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-seedling text-emerald-600 mt-0.5"></i><span>साधारण किसान के बेटे, जिन्होंने गांव के सरकारी विद्यालय से प्रारंभिक शिक्षा प्राप्त की।</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-graduation-cap text-[#5c061d] mt-0.5"></i><span>बड़े सपने, अटूट मेहनत और दृढ़ संकल्प के साथ भारत सरकार में IRS अधिकारी बने।</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-star text-amber-500 mt-0.5"></i><span>वर्ष 2008 में सेवानिवृत्ति के बाद जीवन जन्मभूमि और समाज की सेवा में लगाया।</span></div>
+                    <div class="flex items-start gap-2 bg-white p-3 rounded-xl border border-slate-100"><i class="fa-solid fa-shield-heart text-red-600 mt-0.5"></i><span>शिक्षा का प्रसार, गांव का समग्र विकास, महिला एवं युवा सशक्तिकरण का मुख्य उद्देश्य।</span></div>
+                `
+            }
+        };
+
+        function renderLanguageData() {
+            const currentObj = layoutDictionary[currentLang];
+            
+            document.getElementById('top-reg').innerText = currentObj.topReg;
+            document.getElementById('langBtn').querySelector('span').innerText = currentObj.langBtn;
+            document.getElementById('back-home-text').innerText = currentObj.backHome;
+            document.getElementById('hero-tag').innerText = currentObj.heroTag;
+            document.getElementById('hero-title').innerText = currentObj.heroTitle;
+            document.getElementById('hero-quote').innerText = currentObj.heroQuote;
+            
+            document.getElementById('m1').innerText = currentObj.m1;
+            document.getElementById('m2').innerText = currentObj.m2;
+            document.getElementById('m3').innerText = currentObj.m3;
+            document.getElementById('m4').innerText = currentObj.m4;
+            
+            document.getElementById('bio-pic-caption').innerText = currentObj.bioPicCaption;
+            document.getElementById('bio-title').innerText = currentObj.bioTitle;
+            document.getElementById('milestone-title').innerText = currentObj.milestoneTitle;
+            document.getElementById('succession-title').innerText = currentObj.successionTitle;
+            document.getElementById('succession-sub').innerText = currentObj.successionSub;
+            
+            document.getElementById('post-siddharth').innerText = currentObj.postSiddharth;
+            document.getElementById('post-rashmi').innerText = currentObj.postRashmi;
+            
+            document.getElementById('bio-paragraphs').innerHTML = currentObj.paragraphs;
+            document.getElementById('milestones-list').innerHTML = currentObj.milestones;
+        }
+
+        function switchLanguage() {
+            currentLang = (currentLang === 'HI') ? 'EN' : 'HI';
+            renderLanguageData();
+        }
+
+        window.onload = function() {
+            renderLanguageData();
+        };
+    </script>
+</body>
+</html>
