@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .serif-font { font-family: 'Merriweather', serif; }
@@ -109,7 +113,7 @@
                 <div class="grid md:grid-cols-2 gap-8 items-center w-full" id="upcomingSliderContainer">
                     <div class="text-center md:text-left py-12 w-full col-span-2">
                         <i class="fa-solid fa-spinner text-3xl text-[#5c061d] animate-spin"></i>
-                        <p class="text-xs text-slate-400 mt-2">Connecting to live Google Sheet records...</p>
+                        <p class="text-xs text-slate-400 mt-2">Connecting to live records...</p>
                     </div>
                 </div>
 
@@ -175,7 +179,7 @@
                     </div>
                     <button onclick="toggleModal('donateModal')" class="mt-6 text-xs font-bold text-amber-700 hover:underline text-left flex items-center gap-1.5" id="p2-btn">Support</button>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition">
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition">
                     <div class="space-y-3">
                         <div class="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-hand-holding-hand"></i></div>
                         <h3 class="font-bold text-slate-900 tracking-tight text-base serif-font" id="p3-title">Women Empowerment</h3>
@@ -261,8 +265,20 @@
         let upcomingIdx = 0;
         let completedIdx = 0;
 
-        // Your Direct SheetDB URL Endpoint
-        const DATA_API_URL = "https://sheetdb.io/api/v1/46wqmsnup336m"; 
+        // Configuration targeting your exact Realtime Database coordinates
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6MFWKZVDSu1i4QXM5ZNcnd2myuLs1Pyo",
+            authDomain: "bmsvs-hosting.firebaseapp.com",
+            projectId: "bmsvs-hosting",
+            storageBucket: "bmsvs-hosting.firebasestorage.app",
+            messagingSenderId: "527539594907",
+            appId: "1:527539594907:web:2b67ba480ae460d7a6483e",
+            measurementId: "G-D1LEG857WT",
+            databaseURL: "https://bmsvs-hosting-default-rtdb.firebaseio.com"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         const dictionary = {
             EN: {
@@ -305,26 +321,23 @@
             }
         };
 
-        // Real-time Data Fetch Pipeline from SheetDB API
-        async function fetchSheetsData() {
-            try {
-                const response = await fetch(DATA_API_URL);
-                const allRows = await response.json();
-
-                // Sort Rows into respective modules based on Type column
-                upcomingItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "UPCOMING");
-                completedItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "COMPLETED");
-                globalMeetings = allRows.filter(row => row.Type && row.Type.toUpperCase() === "MEETING");
-
-                renderSliders();
-                renderMeetings();
-            } catch (err) {
-                console.error("Sheets integration failed, displaying backup UI state: ", err);
+        // Real-time active data tracking engine shifting from SheetDB loops to Firebase events
+        db.ref('siteContent').on('value', (snapshot) => {
+            const allRows = [];
+            const obj = snapshot.val();
+            if(obj) {
+                Object.keys(obj).forEach(k => allRows.push(obj[k]));
             }
-        }
+            
+            upcomingItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "UPCOMING");
+            completedItems = allRows.filter(row => row.Type && row.Type.toUpperCase() === "COMPLETED");
+            globalMeetings = allRows.filter(row => row.Type && row.Type.toUpperCase() === "MEETING");
+
+            renderSliders();
+            renderMeetings();
+        });
 
         function renderSliders() {
-            // Upper Slider rendering logic block
             const upContainer = document.getElementById('upcomingSliderContainer');
             if(upcomingItems.length > 0) {
                 const up = upcomingItems[upcomingIdx];
@@ -334,13 +347,12 @@
                         <h2 class="text-2xl md:text-4xl font-bold text-slate-900 serif-font">${currentLang === 'HI' ? up.HeadingHI : up.HeadingEN}</h2>
                         <p class="text-sm text-slate-600 leading-relaxed">${currentLang === 'HI' ? up.ParagraphHI : up.ParagraphEN}</p>
                     </div>
-                    <div class="h-64 rounded-2xl overflow-hidden border shadow-inner animate-fadeIn"><img src="${up.ImageURL}" class="w-full h-full object-cover"></div>
+                    <div class="h-64 rounded-2xl overflow-hidden border shadow-inner animate-fadeIn"><img src="${up.ImageURL}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x250?text=BMSVS'"></div>
                 `;
             } else {
-                upContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400">No active mission cards in sheet.</div>`;
+                upContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400 py-12">No active upcoming missions listed.</div>`;
             }
 
-            // Lower Slider rendering logic block
             const compContainer = document.getElementById('completedSliderContainer');
             if(completedItems.length > 0) {
                 const comp = completedItems[completedIdx];
@@ -350,10 +362,10 @@
                         <h2 class="text-2xl md:text-3xl font-bold text-white serif-font">${currentLang === 'HI' ? comp.HeadingHI : comp.HeadingEN}</h2>
                         <p class="text-sm text-slate-400 leading-relaxed">${currentLang === 'HI' ? comp.ParagraphHI : comp.ParagraphEN}</p>
                     </div>
-                    <div class="h-56 rounded-2xl overflow-hidden border border-slate-800 animate-fadeIn"><img src="${comp.ImageURL}" class="w-full h-full object-cover"></div>
+                    <div class="h-56 rounded-2xl overflow-hidden border border-slate-800 animate-fadeIn"><img src="${comp.ImageURL}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x250?text=BMSVS'"></div>
                 `;
             } else {
-                compContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-500">No milestone rows configured yet.</div>`;
+                compContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-500 py-12">No milestone timelines recorded.</div>`;
             }
         }
 
@@ -366,17 +378,16 @@
                             <div class="text-xs font-bold text-amber-600"><i class="fa-regular fa-clock mr-1"></i> ${currentLang === 'HI' ? m.ParagraphHI : m.ParagraphEN}</div>
                             <h3 class="font-bold text-slate-900 text-sm md:text-base border-b border-slate-100 pb-2">${currentLang === 'HI' ? m.HeadingHI : m.HeadingEN}</h3>
                         </div>
-                        <a href="${m.ImageURL}" target="_blank" class="mt-4 bg-[#5c061d] text-white hover:bg-[#4a0416] text-center font-bold py-2 rounded-xl text-xs transition tracking-wider flex items-center justify-center gap-2">
+                        <a href="${m.ImageURL || '#'}" target="_blank" class="mt-4 bg-[#5c061d] text-white hover:bg-[#4a0416] text-center font-bold py-2 rounded-xl text-xs transition tracking-wider flex items-center justify-center gap-2">
                             <i class="fa-solid fa-video"></i> ${currentLang === 'HI' ? 'बैठक लिंक' : 'Access Meeting Link'}
                         </a>
                     </div>
                 `).join('');
             } else {
-                container.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400 p-4 bg-white border rounded-xl">No active panel schedules found.</div>`;
+                container.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-400 p-8 bg-white border rounded-xl shadow-xs">No panels scheduled currently.</div>`;
             }
         }
 
-        // Automated 2-second shifting logic interval definitions
         setInterval(() => { if(upcomingItems.length > 1) { nextSlide('upcoming'); } }, 2000);
         setInterval(() => { if(completedItems.length > 1) { nextSlide('completed'); } }, 2000);
 
@@ -402,11 +413,8 @@
             document.getElementById('nav-contact').innerText = data.navContact;
             document.getElementById('btn-login').innerText = data.btnLogin;
             document.getElementById('btn-donate').innerText = data.btnDonate;
-            
-            // Re-mapping buttons inside translation switcher safely to fix the crash
             document.getElementById('btn-nav-apply').querySelector('span').innerText = data.btnNavApply;
             document.getElementById('btn-nav-about').querySelector('span').innerText = data.btnNavAbout;
-            
             document.getElementById('nav-title-main').innerText = data.navTitleMain;
             document.getElementById('nav-title-sub').innerText = data.navTitleSub;
             document.getElementById('board-divider-text').innerHTML = `<i class="fa-solid fa-gavel"></i> ` + data.boardDivider;
@@ -430,7 +438,6 @@
 
         window.onload = function() {
             renderLanguage();
-            fetchSheetsData();
         };
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
     </script>
