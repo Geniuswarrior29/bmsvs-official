@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Control Panel | BMSVS Admin Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif-title { font-family: 'Cinzel', serif; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeUp { animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#5c061d]/5 via-slate-50 to-[#fffdf9] text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <div class="bg-[#5c061d] text-amber-100/90 text-[11px] font-bold py-2 px-6 border-b border-maroon-800 flex justify-between items-center shadow-xs">
+        <div><i class="fa-solid fa-shield-halved text-amber-400 mr-1.5"></i> Secure Central Hub Engine</div>
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 
+            <span>System Status: Operational</span>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-12 max-w-4xl flex-grow flex flex-col justify-center">
+        
+        <div class="text-center space-y-3 mb-10 animate-fadeUp" style="animation-delay: 0.1s">
+            <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-20 h-20 object-contain mx-auto bg-white rounded-2xl p-1 shadow-md border border-slate-100">
+            <div class="space-y-1">
+                <h1 class="text-2xl md:text-3xl font-bold text-[#5c061d] serif-title tracking-tight">Brajlal Memorial Institute</h1>
+                <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">Administrative Master Control Panel</p>
+            </div>
+            <div class="w-24 h-0.5 bg-amber-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto w-full animate-fadeUp" style="animation-delay: 0.25s">
+            
+            <a href="admin.html" class="group bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:border-[#5c061d]/30 transition duration-300 flex flex-col justify-between min-h-[190px] relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-[#5c061d]"></div>
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-rose-50 text-[#5c061d] rounded-2xl flex items-center justify-center text-xl transition duration-300 group-hover:scale-105 shadow-sm">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-slate-900 text-base">Membership Desk Portal</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">नए सदस्यों के आवेदनों की जांच करें, भुगतान स्क्रीनशॉट देखें और आईडी कार्ड जारी (Approve/Reject) करें।</p>
+                    </div>
+                </div>
+                <div class="text-xs font-bold text-[#5c061d] pt-4 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                    Access Verification Terminal <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </div>
+            </a>
+
+            <a href="manager.html" class="group bg-white border border-slate-200/80 rounded-3xl p-6 shadow-md hover:shadow-xl hover:border-amber-500/30 transition duration-300 flex flex-col justify-between min-h-[190px] relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-amber-500"></div>
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-amber-50 text-amber-700 rounded-2xl flex items-center justify-center text-xl transition duration-300 group-hover:scale-105 shadow-sm">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-slate-900 text-base">Live Content Manager</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">मुख्य वेबसाइट के स्लाइडर्स, वर्तमान में जारी कार्य, संपन्न उपलब्धियां और गूगल मीट मीटिंग्स का डेटा डायरेक्ट बदलें।</p>
+                    </div>
+                </div>
+                <div class="text-xs font-bold text-amber-700 pt-4 flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                    Access Content Studio Desk <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="text-center mt-10 animate-fadeUp" style="animation-delay: 0.35s">
+            <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-[#5c061d] transition bg-white px-5 py-2 border rounded-full shadow-xs"><i class="fa-solid fa-globe mr-1"></i> Open Public Website</a>
+        </div>
+
+    </main>
+
+    <footer class="bg-[#0f172a] text-slate-500 py-4 text-center text-xs border-t border-slate-800">
+        © 2026 Brajlal Memorial Institute &bull; Administrative Network Hub.
+    </footer>
+
+</body>
+</html>
