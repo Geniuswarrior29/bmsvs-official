@@ -6,8 +6,9 @@
     <title>Brajlal Memorial Social Development Institute</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Firebase Core Web CDNs (Client Side Integration) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
@@ -20,9 +21,10 @@
 </head>
 <body class="bg-[#fdfbfc] text-slate-800 flex flex-col min-h-screen antialiased scroll-smooth">
 
+    <!-- Top Info Bar -->
     <div class="bg-[#5c061d] text-amber-100/90 text-xs py-2 px-4 border-b border-maroon-800 sticky top-0 z-50 shadow-sm">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <div id="top-email"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> info@brajlalmemorial.org</div>
+        <div class="container mx-auto flex flex-wrap justify-between items-center gap-y-2 px-4">
+            <div id="top-email"><i class="fa-solid fa-envelope text-amber-400 mr-1"></i> brajlalmsvs@gmail.com</div>
             <div class="flex items-center gap-4">
                 <div class="hidden sm:block text-slate-300 font-medium" id="top-reg">Registered NGO | Govt. Approved Act</div>
                 <button onclick="switchLanguage()" id="langBtn" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1">
@@ -32,8 +34,9 @@
         </div>
     </div>
 
+    <!-- Main Navigation Header -->
     <header class="sticky top-[37px] z-40 bg-white/95 border-b border-slate-100 shadow-sm backdrop-blur-md">
-        <div class="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-4 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-y-3">
             <a href="#" class="flex items-center gap-3">
                 <img src="https://i.ibb.co/S7tdtXBX/Whats-App-Image-2026-06-12-at-08-58-30.jpg" alt="NGO Logo" class="w-14 h-14 object-contain">
                 <div class="leading-tight">
@@ -49,7 +52,8 @@
                 <a href="#contact" class="hover:text-[#5c061d] transition" id="nav-contact">Contact</a>
             </nav>
             
-            <div class="flex items-center gap-2">
+            <!-- FIXED Navigation Action Slots (Donate Button Removed Safely) -->
+            <div class="flex flex-wrap items-center gap-2">
                 <a href="apply.html" class="text-xs sm:text-sm font-bold bg-[#5c061d] hover:bg-[#4a0416] text-white px-3 py-2 rounded-xl transition shadow-md flex items-center gap-1.5" id="btn-nav-apply">
                     <i class="fa-solid fa-user-plus text-[11px]"></i> <span>Join Us / Apply</span>
                 </a>
@@ -59,7 +63,6 @@
                 </a>
                 
                 <a href="login.html" class="text-xs sm:text-sm font-bold text-[#5c061d] hover:bg-rose-50 border border-[#5c061d] px-4 py-2 rounded-xl transition inline-block text-center" id="btn-login">Member Login</a>
-                <button onclick="toggleModal('donateModal')" class="text-xs sm:text-sm font-bold bg-[#5c061d] hover:bg-[#4a0416] text-white px-5 py-2 rounded-xl shadow-md transition tracking-wide" id="btn-donate">Donate Now</button>
             </div>
         </div>
     </header>
@@ -208,6 +211,7 @@
         </div>
     </section>
 
+    <!-- CONTACT BLOCK -->
     <section id="contact" class="py-16 bg-[#faf9fa]">
         <div class="container mx-auto px-4 lg:px-8 max-w-xl bg-white rounded-2xl border border-slate-200 p-8 shadow-md">
             <div class="space-y-6 text-center">
@@ -225,6 +229,10 @@
                         <span id="form-addr">Raebareli Headquarters, Uttar Pradesh, India</span>
                     </div>
                     <div class="flex items-center gap-3 border-t border-slate-50 pt-2">
+                        <i class="fa-solid fa-envelope text-[#5c061d] text-base"></i>
+                        <a href="mailto:brajlalmsvs@gmail.com" class="hover:text-[#5c061d] transition">brajlalmsvs@gmail.com</a>
+                    </div>
+                    <div class="flex items-center gap-3 border-t border-slate-50 pt-2">
                         <i class="fa-solid fa-phone text-[#5c061d] text-base"></i>
                         <a href="tel:+919196267689" class="hover:text-[#5c061d] transition">+91 91962 67689</a>
                     </div>
@@ -237,6 +245,7 @@
         </div>
     </section>
 
+    <!-- Modals (Donate Trigger Ke Liye Form Built-In Functionality Safe Hai) -->
     <div id="loginModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 relative">
             <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
@@ -257,6 +266,7 @@
         <p>© 2026 Brajlal Memorial Institute. All Rights Reserved.</p>
     </footer>
 
+    <!-- ENGINE CODE MODULE CORE LOGIC PIPELINES -->
     <script>
         let currentLang = 'HI';
         let upcomingItems = [];
@@ -315,7 +325,7 @@
                     <p>बृजलाल मेमोरियल सामाजिक विकास संस्थान की स्थापना स्वर्गीय श्री बृजलाल जी के दृष्टिकोण, मूल्यों और विरासत को आगे बढ़ाने के लिए की गई थी, जिन्होंने अपना जीवन सामाजिक सेवा, सामुदायिक कल्याण tobacco समाज के वंचित वर्गों के उत्थान के लिए समर्पित कर दिया। उनका मानना था कि प्रत्येक व्यक्ति शिक्षा, गरिमा, समान अवसर और बेहतर जीवन स्तर का हकदार है।</p>
                     <p>उनका सपना एक ऐसा समाज बनाने का था जो शिक्षित, सशक्त, आत्मनिर्भर और संगठित हो। उन्होंने सामाजिक समरसता, महिला सशक्तिकरण, पर्यावरण जागरूकता, युवा विकास और जरूरतमंदों की सहायता के लिए लगातार काम किया। मानवता के प्रति उनकी प्रतिबद्धता हमारे..."</p>
                     <p>आज, हमारा संस्थान शिक्षा, स्वास्थ्य, कौशल विकास, पर्यावरण संरक्षण tobacco सामुदायिक सशक्तिकरण पर केंद्रित विभिन्न कार्यक्रमों के माध्यम से उनके दृष्टिकोण को वास्तविकता में बदलने का प्रयास करता है। हम स्थायी अवसर पैदा करने और समाज में सकारात्मक बदलाव लाने के लिए..."</p>
-                    <p>मैं अपने सभी सदस्यों, स्वयंसेवकों, समर्थकों और शुभचिंतकों को उनके निरंतर विश्वास और सहयोग के लिए धन्यवाद देती हूं। साथ मिलकर,  हम बृजलाल जी के सपनों को पूरा कर सकते हैं और आने वाली पीढ़ियों के लिए एक मजबूत, अधिक समावेशी और करुणामय समाज का निर्माण कर सकते हैं।</p>
+                    <p>मैं अपने सभी सदस्यों, स्वयंसेवकों, समर्थकों और शुभचिंतकों को उनके निरंतर विश्वास tobacco सहयोग के लिए धन्यवाद देती हूं। साथ मिलकर,  हम बृजलाल जी के सपनों को पूरा कर सकते हैं tobacco आने वाली पीढ़ियों के लिए एक मजबूत, अधिक समावेशी tobacco करुणामय समाज का निर्माण कर सकते हैं।</p>
                     <p class="font-bold text-[#5c061d] serif-font mt-2">रश्मि पासी<br><span class="text-xs text-slate-400 font-sans font-normal">अध्यक्ष, BMSVS</span></p>
                 `
             }
@@ -412,7 +422,6 @@
             document.getElementById('nav-work').innerText = data.navWork;
             document.getElementById('nav-contact').innerText = data.navContact;
             document.getElementById('btn-login').innerText = data.btnLogin;
-            document.getElementById('btn-donate').innerText = data.btnDonate;
             document.getElementById('btn-nav-apply').querySelector('span').innerText = data.btnNavApply;
             document.getElementById('btn-nav-about').querySelector('span').innerText = data.btnNavAbout;
             document.getElementById('nav-title-main').innerText = data.navTitleMain;
